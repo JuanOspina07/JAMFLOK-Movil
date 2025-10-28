@@ -5,6 +5,6 @@ export default {
     small: 14,
     medium: 18,
     large: 24,
-    title: 32,
+    title: 25,
   },
 };

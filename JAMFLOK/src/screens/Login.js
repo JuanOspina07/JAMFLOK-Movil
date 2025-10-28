@@ -1,77 +1,49 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert} from "react-native";
-import axios from "axios";
+import React, { useState, useContext } from "react";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../context/authContext";
+import { LoginLogic } from "../logic/LoginLogic";
 
 import GradientBackground from "../hooks/gradientBackground";
 import typography from "../styles/fonts";
-import colors from "../styles/colors"; // si tienes un archivo de colores
-import logo from "../../assets/images/logo.png"; // cambia la ruta si es diferente
+import logo from "../../assets/images/logo.png";
+import stylesGlobal from "../styles/stylesGlobal";
 
 export default function Login() {
   const navigation = useNavigation();
+  const { login } = useContext(AuthContext);
+
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
-    if (!nombreUsuario || !contraseña) {
-      Alert.alert("Campos vacíos", "Por favor completa todos los campos.");
-      return;
-    }
-
-    try {
-      const response = await axios.post("http://192.168.20.69:4000/api/login", {
-        nombreUsuario,
-        contraseña,
-      });
-
-      if (response.data.success) {
-        const { idUsuario, idRol, nombre, apellido } = response.data.user;
-
-        // Guardar datos en almacenamiento local (AsyncStorage)
-        // Puedes instalarlo: npm install @react-native-async-storage/async-storage
-        import("@react-native-async-storage/async-storage").then(({ default: AsyncStorage }) => {
-          AsyncStorage.setItem("isAuthenticated", "true");
-          AsyncStorage.setItem("user", JSON.stringify({ idUsuario, idRol, nombre, apellido }));
-        });
-
-        if (idRol === 1) {
-          navigation.navigate("Emprendedor");
-        } else if (idRol === 2) {
-          navigation.navigate("Cliente");
-        } else {
-          Alert.alert("Error", "Rol no reconocido");
-        }
-      } else {
-        Alert.alert("Error", response.data.message);
-      }
-    } catch (error) {
-      console.error("Error en login:", error);
-      Alert.alert("Error", "Hubo un problema al iniciar sesión. Intenta nuevamente.");
-    }
-  };
-
-  const handleRecuperar = () => {
-    navigation.navigate("Recuperar");
-  };
+  const { handleLogin, handleRecuperar } = LoginLogic(login, navigation);
 
   return (
     <GradientBackground>
-      <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
-        <Text style={styles.title}>INICIO DE SESIÓN</Text>
+      <View style={stylesGlobal.container}>
+        <Image source={logo} style={stylesGlobal.logo} />
 
-        <Text style={styles.label}>Nombre de Usuario</Text>
+        <Text
+          style={[
+            stylesGlobal.title,
+            { marginBottom: 20, fontSize: typography.size.medium },
+          ]}
+        >
+          INICIO DE SESIÓN
+        </Text>
+
+        <Text style={[stylesGlobal.label, { left: 10 }]}>Nombre de Usuario</Text>
         <TextInput
-          style={styles.input}
+          style={stylesGlobal.input}
           placeholder="Nombre de usuario"
           value={nombreUsuario}
           onChangeText={setNombreUsuario}
         />
 
-        <Text style={styles.label}>Contraseña</Text>
+        <Text style={[stylesGlobal.label, { left: 10 }]}>Contraseña</Text>
         <TextInput
-          style={styles.input}
+          style={stylesGlobal.input}
           placeholder="Contraseña"
           secureTextEntry
           value={contraseña}
@@ -79,69 +51,22 @@ export default function Login() {
         />
 
         <TouchableOpacity onPress={handleRecuperar}>
-          <Text style={styles.forgot}>¿Olvidaste tu contraseña? <Text style={styles.link}>Recupérala</Text></Text>
+          <Text style={[stylesGlobal.text,]}>
+            ¿Olvidaste tu contraseña?{" "}
+            <Text style={stylesGlobal.link}>Recupérala</Text>
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Iniciar Sesión</Text>
+        <TouchableOpacity
+          style={[stylesGlobal.button, loading && { opacity: 0.8 }]}
+          onPress={() => handleLogin(nombreUsuario, contraseña, setLoading)}
+          disabled={loading} activeOpacity={0.8}
+        >
+          <Text style={stylesGlobal.buttonText}>
+            {loading ? "Ingresando..." : "Iniciar Sesión"}
+          </Text>
         </TouchableOpacity>
       </View>
     </GradientBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 30,
-  },
-  logo: {
-    width: 120,
-    height: 120,
-    resizeMode: "contain",
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 25,
-  },
-  label: {
-    alignSelf: "flex-start",
-    marginLeft: 10,
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  input: {
-    width: "100%",
-    height: 45,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    marginBottom: 15,
-    borderWidth: 1,
-    borderColor: "#ddd",
-  },
-  forgot: {
-    marginBottom: 15,
-    color: "#444",
-  },
-  link: {
-    color: "#e90404",
-    fontWeight: "bold",
-  },
-  button: {
-    width: "100%",
-    backgroundColor: "#e90404",
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-});

@@ -24,7 +24,7 @@ export default function Home() {
           source={require("../../assets/images/logo.png")}
           style={{ width: 255, height: 255 }}
         />
-        <Text style={[stylesGlobal.subtitle, { textAlign: "center", marginBottom: 30,}]}>
+        <Text style={[stylesGlobal.subtitle, { textAlign: "center"}]}>
           Vende fácil, compra mejor
         </Text>
 
@@ -36,7 +36,7 @@ export default function Home() {
           ¿No tienes una cuenta?
         </Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")} activeOpacity={0.8}>
           <Text style={[stylesGlobal.link]}>Crea una aqui</Text>
         </TouchableOpacity>
         

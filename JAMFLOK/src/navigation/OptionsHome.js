@@ -29,7 +29,7 @@ export default function OptionsHome() {
         tabBarInactiveTintColor: "gray",
         tabBarStyle: {
           backgroundColor: "#f5efeb",
-          height: 60,
+          height: "7%",
           borderBlockColor: "transparent",
           paddingBottom: 6,
           paddingTop: 4,

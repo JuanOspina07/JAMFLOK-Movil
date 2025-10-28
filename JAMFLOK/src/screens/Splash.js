@@ -4,7 +4,7 @@ import GradientBackground from '../hooks/gradientBackground';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Splash({ navigation }) {
+export default function Splash() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.5)).current;
   const moveY = useRef(new Animated.Value(50)).current;
@@ -65,7 +65,7 @@ export default function Splash({ navigation }) {
     // Animación de partículas
     particles.forEach(p => {
       const animateParticle = () => {
-        p.y.setValue(-50); // reset arriba
+        p.y.setValue(-50);
         Animated.timing(p.y, {
           toValue: height + 50,
           duration: p.speed,
@@ -75,19 +75,15 @@ export default function Splash({ navigation }) {
       };
       animateParticle();
     });
-
-    // Redirigir después de 4.8s
-    const timer = setTimeout(() => {
-      navigation.replace('HomeStack');
-    }, 4800);
-
-    return () => clearTimeout(timer);
   }, []);
 
-  // Interpolación para el efecto de brillo
   const shine = shineAnim.interpolate({
     inputRange: [0, 0.5, 1],
-    outputRange: ['rgba(255,255,255,0.8)', 'rgba(255,255,255,1)', 'rgba(255,255,255,0.8)'],
+    outputRange: [
+      'rgba(255,255,255,0.8)',
+      'rgba(255,255,255,1)',
+      'rgba(255,255,255,0.8)',
+    ],
   });
 
   return (
@@ -133,11 +129,6 @@ export default function Splash({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   logoContainer: {
     alignItems: 'center',
     zIndex: 2,
