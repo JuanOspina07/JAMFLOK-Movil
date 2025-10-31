@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../context/authContext";
 import { LoginLogic } from "../logic/LoginLogic";
+import { Ionicons } from "@expo/vector-icons";
 
+import logo from "../../assets/images/logo.png";
 import GradientBackground from "../hooks/gradientBackground";
 import typography from "../styles/fonts";
-import logo from "../../assets/images/logo.png";
 import stylesGlobal from "../styles/stylesGlobal";
 
 export default function Login() {
@@ -16,6 +17,7 @@ export default function Login() {
   const [nombreUsuario, setNombreUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { handleLogin, handleRecuperar } = LoginLogic(login, navigation);
 
@@ -33,25 +35,41 @@ export default function Login() {
           INICIO DE SESIÓN
         </Text>
 
+        {/* Campo usuario */}
         <Text style={[stylesGlobal.label, { left: 10 }]}>Nombre de Usuario</Text>
         <TextInput
           style={stylesGlobal.input}
           placeholder="Nombre de usuario"
           value={nombreUsuario}
           onChangeText={setNombreUsuario}
+          multiline={false}
         />
 
         <Text style={[stylesGlobal.label, { left: 10 }]}>Contraseña</Text>
-        <TextInput
-          style={stylesGlobal.input}
-          placeholder="Contraseña"
-          secureTextEntry
-          value={contraseña}
-          onChangeText={setContraseña}
-        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={[stylesGlobal.input, styles.inputWithIcon]}
+            placeholder="Contraseña"
+            secureTextEntry={!showPassword}
+            value={contraseña}
+            onChangeText={setContraseña}
+            multiline={false}
+          />
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => setShowPassword(!showPassword)}
+            activeOpacity={0.8}
+          >
+            <Ionicons
+              name={showPassword ? "eye-off-outline" : "eye-outline"}
+              size={22}
+              color="#666"
+            />
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={handleRecuperar}>
-          <Text style={[stylesGlobal.text,]}>
+        <TouchableOpacity onPress={handleRecuperar} activeOpacity={0.8}>
+          <Text style={stylesGlobal.text}>
             ¿Olvidaste tu contraseña?{" "}
             <Text style={stylesGlobal.link}>Recupérala</Text>
           </Text>
@@ -60,7 +78,8 @@ export default function Login() {
         <TouchableOpacity
           style={[stylesGlobal.button, loading && { opacity: 0.8 }]}
           onPress={() => handleLogin(nombreUsuario, contraseña, setLoading)}
-          disabled={loading} activeOpacity={0.8}
+          disabled={loading}
+          activeOpacity={0.8}
         >
           <Text style={stylesGlobal.buttonText}>
             {loading ? "Ingresando..." : "Iniciar Sesión"}
@@ -70,3 +89,21 @@ export default function Login() {
     </GradientBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  inputContainer: {
+    width: "80%", 
+    alignSelf: "center",
+    position: "relative",
+  },
+  inputWithIcon: {
+    paddingRight: 50, 
+    width:"100%"
+  },
+  iconContainer: {
+    position: "absolute",
+    right: 15, 
+    top: "40%",
+    transform: [{ translateY: -12 }],
+  },
+});

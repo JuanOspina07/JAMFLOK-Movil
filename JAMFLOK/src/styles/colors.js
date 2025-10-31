@@ -5,6 +5,7 @@ export default {
     colorEnd:"#f5efeb",
     textPrimary:"#f5efeb",
     textSecundary:"#2f4156",
+    icon:"#404040",
     error:"#e90404",
     success:"#00bf63"
 }

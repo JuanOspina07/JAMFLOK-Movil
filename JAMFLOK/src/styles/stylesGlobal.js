@@ -38,7 +38,7 @@ export default StyleSheet.create({
     shadowRadius: 4,
   },
   buttonText: {
-    color: 'white',
+    color: colors.textPrimary,
     fontFamily: fonts.bold,
     fontSize: fonts.size.medium,
     textAlign: 'center',
@@ -63,13 +63,13 @@ export default StyleSheet.create({
   },
   input: {
     width: "80%",
-    height: "5%",
+    paddingVertical: 11,
     backgroundColor: "#fff",
     borderRadius: 50,
     paddingHorizontal: 15,
     marginBottom: 15,
-    borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: `${colors.primary}70`,
+    borderWidth: 3,
     fontSize: fonts.size.small,
     fontFamily: fonts.regular,
     color: colors.textSecundary,
@@ -78,5 +78,6 @@ export default StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+    textAlignVertical: "center",
   },
 });

@@ -5,9 +5,10 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 import ProgressBar from "../../components/ProgressBar";
 import GradientBackground from "../../hooks/gradientBackground";
+import { useDatosPersonalesLogic } from "../../logic/RegisterLogic";
 import stylesGlobal from "../../styles/stylesGlobal";
-import { formatDate } from "../../utils/formDate"; 
 import colors from "../../styles/colors";
+import { formatDate } from "../../utils/formDate"; 
 
 export default function DatosPersonales() {
   const navigation = useNavigation();
@@ -18,10 +19,12 @@ export default function DatosPersonales() {
   const [segundoApellido, setSegundoApellido] = useState("");
   const [edad, setEdad] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [showDatePicker, setShowDatePicker] = useState(false); // 👈 falta este estado
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const { handleNext: handleNextLogic } = useDatosPersonalesLogic(navigation);
 
   const handleNext = () => {
-    navigation.navigate("Paso2", {
+    handleNextLogic({
       primerNombre,
       segundoNombre,
       primerApellido,

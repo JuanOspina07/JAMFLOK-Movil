@@ -28,7 +28,7 @@ export default function Home() {
           Vende fácil, compra mejor
         </Text>
 
-        <TouchableOpacity style={stylesGlobal.button} onPress={() => navigation.navigate("Login")}>
+        <TouchableOpacity style={stylesGlobal.button} onPress={() => navigation.navigate("Login")} activeOpacity={0.8}>
           <Text style={stylesGlobal.buttonText}>Iniciar sesión</Text>
         </TouchableOpacity>
 

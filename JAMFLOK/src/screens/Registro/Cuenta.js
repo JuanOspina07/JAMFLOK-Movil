@@ -3,13 +3,12 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,ActivityIndi
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 
-
 import ProgressBar from "../../components/ProgressBar";
-import stylesGlobal from "../../styles/stylesGlobal";
 import GradientBackground from "../../hooks/gradientBackground";
-
-import { registerUser } from "../../services/RegisterService";
-import {getRol} from "../../services/RolService";
+import { useCuentaLogic, validatePassword } from "../../logic/RegisterLogic";
+import colors from "../../styles/colors";
+import fonts from "../../styles/fonts";
+import stylesGlobal from "../../styles/stylesGlobal";
 
 export default function Cuenta() {
   const navigation = useNavigation();
@@ -20,44 +19,40 @@ export default function Cuenta() {
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [rolSeleccionado, setRolSeleccionado] = useState("");
-  const [roles, setRoles] = useState([]);
-  const [loading, setLoading] = useState(false);
-  
-   useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        const data = await getRol();
-        setRoles(data);
-      } catch (error) {
-        console.log("Error al obtener roles:", error);
-        Alert.alert("Error", "No se pudieron cargar los roles.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRoles();
-  }, []);
+  const [passwordChecks, setPasswordChecks] = useState({length: false,uppercase: false,number: false,special: false,});
+  const { roles, loading, handleRegister: handleRegisterLogic, validateAccountFields } = useCuentaLogic();
 
+  useEffect(() => {
+    const { passwordChecks } = validatePassword(contraseña, false);
+    setPasswordChecks(passwordChecks);
+  }, [contraseña]);
+
+  
   const handleRegister = async () => {
-    if (!nombreUsuario || !correo || !contraseña || !rolSeleccionado) {
-      Alert.alert("Campos incompletos", "Por favor, llena todos los campos.");
+    // Validar campos primero (excepto contraseña)
+    const fieldValidation = validateAccountFields({ nombreUsuario, correo, rolSeleccionado });
+    if (!fieldValidation.valid) {
+      Alert.alert("Campos inválidos", fieldValidation.message);
       return;
     }
-    const usuarioData = {
-      ...datos,
-      nombreUsuario,
-      correo,
-      contraseña,
-      rol : rolSeleccionado,
-    };
-    console.log("Datos de usuario a registrar:", usuarioData);
+
+    // Validar contraseña (solo muestra alerta si los otros campos son válidos)
+    const { isValid } = validatePassword(contraseña, true);
+    if (!isValid) return;
 
     try {
-      await registerUser(usuarioData);
-      Alert.alert("Registro Exitoso", "Tu cuenta ha sido creada correctamente.");
-      navigation.navigate("Login");
+      const success = await handleRegisterLogic(datos, {
+        nombreUsuario,
+        correo,
+        contraseña,
+        rolSeleccionado
+      });
+
+      if (success) {
+        navigation.replace("Login");
+      }
     } catch (error) {
-      Alert.alert("Error de Registro", "Hubo un problema al crear tu cuenta. Por favor, intenta nuevamente.");
+      console.error("Error en el registro:", error);
     }
   };
 
@@ -90,6 +85,20 @@ export default function Cuenta() {
         <TextInput placeholder="Nombre de Usuario" style={stylesGlobal.input} value={nombreUsuario} onChangeText={setNombreUsuario} />
         <TextInput placeholder="Correo" style={stylesGlobal.input} value={correo} onChangeText={setCorreo} />
         <TextInput placeholder="Contraseña" secureTextEntry style={stylesGlobal.input} value={contraseña} onChangeText={setContraseña} />
+        <View style={styles.passwordRequirements}>
+          <Text style={[ styles.requirement,{ color: passwordChecks.length ? colors.primary : colors.textPrimary,fontFamily: passwordChecks.length ? fonts.bold : fonts.regular }]}>
+            • Mínimo 8 caracteres
+          </Text>
+          <Text style={[styles.requirement, { color: passwordChecks.uppercase ? colors.primary : colors.textPrimary,fontFamily: passwordChecks.uppercase ? fonts.bold : fonts.regular }]}>
+            • Al menos una letra mayúscula
+          </Text>
+          <Text style={[styles.requirement,{ color: passwordChecks.number ?colors.primary : colors.textPrimary,fontFamily: passwordChecks.number ? fonts.bold : fonts.regular }]}>
+            • Al menos un número
+          </Text>
+          <Text style={[styles.requirement,{ color: passwordChecks.special ? colors.primary : colors.textPrimary,fontFamily: passwordChecks.special ? fonts.bold : fonts.regular }]}>
+            • Al menos un carácter especial (!@#$%^&*)
+          </Text>
+        </View>
 
         <TouchableOpacity style={stylesGlobal.button} onPress={handleRegister} activeOpacity={0.8}>
           <Text style={stylesGlobal.buttonText}>Registrar</Text>
@@ -98,3 +107,16 @@ export default function Cuenta() {
     </View>
   );
 }
+const styles = StyleSheet.create({
+  passwordRequirements: {
+    alignSelf: "flex-start",
+    marginHorizontal: 50,
+    marginTop: 5,
+    fontFamily: fonts.regular,
+  },
+  requirement: {
+    fontSize: 13,
+    marginVertical: 2,
+    
+  },
+});

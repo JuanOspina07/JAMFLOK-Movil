@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Home from "../screens/Home";
 import Information from "../screens/Information";
 import Support from "../screens/Support";
+import colors from "../styles/colors";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,10 +26,10 @@ export default function OptionsHome() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "#2f4156",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.icon,
         tabBarStyle: {
-          backgroundColor: "#f5efeb",
+          backgroundColor: colors.colorEnd,
           height: "7%",
           borderBlockColor: "transparent",
           paddingBottom: 6,

@@ -5,11 +5,8 @@ import { Picker } from "@react-native-picker/picker";
 
 import ProgressBar from "../../components/ProgressBar";
 import GradientBackground from "../../hooks/gradientBackground";
+import { useUbicacionLogic } from "../../logic/RegisterLogic";
 import stylesGlobal from "../../styles/stylesGlobal";
-
-import { documentTypes } from "../../services/DocumentType";
-import { pais,  departamentos as getDepartamento, ciudades as getCiudades} from "../../services/UbicationService";
-import colors from "../../styles/colors";
 
 export default function Ubicacion() {
   const navigation = useNavigation();
@@ -20,75 +17,39 @@ export default function Ubicacion() {
 
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [tipoDocumento, setTipoDocumento] = useState("");
-  const [tiposDocumento, setTiposDocumento] = useState([]);
-
-  const [paises, setPaises] = useState([]);
   const [paisSeleccionado, setPaisSeleccionado] = useState("");
-  
-  const [departamentos, setDepartamentos] = useState([]);
   const [departamentoSeleccionado, setDepartamentoSeleccionado] = useState("");
-
-  const [ciudades, setCiudades] = useState([]);
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState("");
 
-  const [loading, setLoading] = useState(true);
-  const [loadingDeptos, setLoadingDeptos] = useState(false);
-
+  const {
+    loading,
+    tiposDocumento,
+    paises,
+    departamentos,
+    ciudades,
+    loadDepartamentos,
+    loadCiudades,
+    handleNext: handleNextLogic
+  } = useUbicacionLogic();
 
   useEffect(() => {
-    const fetchdata = async () => {
-      try{
-        const [tipos,paises]= await Promise.all([documentTypes(),pais()]);
-        setTiposDocumento(tipos);
-        setPaises(paises);
-      }catch(error){
-        console.log("Error al cargar datos:",error);
-      } finally{
-        setLoading(false);
-      }
-    };
-    fetchdata();
-  },[]);
+    if (paisSeleccionado) {
+      loadDepartamentos(paisSeleccionado);
+    }
+  }, [paisSeleccionado]);
 
-  useEffect(()=>{
-    if(!paisSeleccionado) return;
-
-    const fetchDepartaments = async() => {
-      try{
-        const deptos = await getDepartamento(paisSeleccionado);
-        setDepartamentos(deptos);
-      }catch(error){
-        console.log("Error al cargar departamentos:",error);
-      } finally{
-        setLoadingDeptos(false);
-      }
-    };
-    fetchDepartaments();
-  },[paisSeleccionado]);
-
-  useEffect(()=>{
-    if(!departamentoSeleccionado) return;
-
-    const fetchDepartaments = async() => {
-      try{
-        const ciud = await getCiudades(departamentoSeleccionado);
-        setCiudades(ciud);
-      }catch(error){
-        console.log("Error al cargar ciudades:",error);
-      } finally{
-        setLoadingDeptos(false);
-      }
-    };
-    fetchDepartaments();
-  },[departamentoSeleccionado]);
+  useEffect(() => {
+    if (departamentoSeleccionado) {
+      loadCiudades(departamentoSeleccionado);
+    }
+  }, [departamentoSeleccionado]);
 
   const handleNext = () => {
-    navigation.navigate("Paso3", {
-      ...datosPrevios,
-      idCiudad:ciudadSeleccionada,
+    handleNextLogic(navigation, datosPrevios, {
+      idCiudad: ciudadSeleccionada,
       celular,
       numeroDocumento,
-      idTipoDocumento:tipoDocumento,
+      idTipoDocumento: tipoDocumento,
     });
   };
 
