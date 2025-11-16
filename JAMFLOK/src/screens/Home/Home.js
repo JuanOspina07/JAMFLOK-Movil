@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 
-import GradientBackground from "../hooks/gradientBackground";
-import { useLoadFonts } from "../hooks/loadFonts";
+import GradientBackground from "../../hooks/gradientBackground";
+import { useLoadFonts } from "../../hooks/loadFonts";
 
-import colors from "../styles/colors";
-import stylesGlobal from "../styles/stylesGlobal";
-import typography from "../styles/fonts";
+import colors from "../../styles/colors";
+import stylesGlobal from "../../styles/stylesGlobal";
+import typography from "../../styles/fonts";
 
 export default function Home() {
   const fontsLoaded = useLoadFonts();
@@ -21,7 +21,7 @@ export default function Home() {
     <GradientBackground>
       <View style={stylesGlobal.container}>
         <Image
-          source={require("../../assets/images/logo.png")}
+          source={require("../../../assets/images/logo.png")}
           style={{ width: 255, height: 255 }}
         />
         <Text style={[stylesGlobal.subtitle, { textAlign: "center"}]}>

@@ -5,9 +5,10 @@ import { AuthContext } from "../context/authContext";
 
 import SplashScreen from "../screens/Splash";
 import Home from "./OptionsHome";
-import Emprendedor from "../screens/Emprendedor";
 import Login from "../screens/Login";
 import RegistroNavigator from "./RegistroNavigator";
+import OptionsEntrepreneur from "./OptionsEntrepreneur";
+import BusinessDetails from "../screens/Entrepreuner/BusinessDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,11 @@ function AppStack({ user }) {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user.idRol === 1 ? (
-        <Stack.Screen name="Emprendedor" component={Emprendedor} />
+        <>
+        <Stack.Screen name="Emprendedor" component={OptionsEntrepreneur} />
+
+        <Stack.Screen name = "NegocioDetalles" component={BusinessDetails} />
+        </>
       ) : (
         <Stack.Screen name="Cliente" component={Home} />
       )}

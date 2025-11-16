@@ -1,8 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DatosPersonales from "../screens/Registro/DatosPersonales";
-import Ubicacion from "../screens/Registro/Ubicacion";
-import Cuenta from "../screens/Registro/Cuenta";
+import DatosPersonales from "../screens/Register/DatosPersonales";
+import Ubicacion from "../screens/Register/Ubicacion";
+import Cuenta from "../screens/Register/Cuenta";
 
 const Stack = createNativeStackNavigator();
 

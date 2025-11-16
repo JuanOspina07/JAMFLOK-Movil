@@ -2,14 +2,14 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import Home from "../screens/Home/Home";
-import Information from "../screens/Home/Information";
-import Support from "../screens/Home/Support";
 import colors from "../styles/colors";
+import Entrepreneur from "../screens/Entrepreuner/Entrepreneur";
+import AddBusiness from "../screens/Entrepreuner/AddBusiness";
+import AccountEntrepreneur from "../screens/Entrepreuner/AccountEntrepreneur";
 
 const Tab = createBottomTabNavigator();
 
-export default function OptionsHome() {
+export default function OptionsEntrepreneur() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -19,10 +19,10 @@ export default function OptionsHome() {
           let iconName;
           if (route.name === "Home") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Information") {
-            iconName = focused ? "information-circle" : "information-circle-outline";
-          } else if (route.name === "Support") {
-            iconName = focused ? "chatbubbles" : "chatbubbles-outline";
+          } else if (route.name === "AddBusiness") {
+            iconName = focused ? "add-circle" : "add-circle-outline";
+          }  else if (route.name === "AccountEntrepreneur") {
+            iconName = focused ? "person-circle" : "person-circle-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -41,9 +41,9 @@ export default function OptionsHome() {
         },
       })}
     >
-      <Tab.Screen name="Support" component={Support} options={{ tabBarLabel: "Soporte" }}/>
-      <Tab.Screen name="Home" component={Home} options={{ tabBarLabel: "Inicio" }}/>
-      <Tab.Screen name="Information" component={Information} options={{ tabBarLabel: "Información" }}/>
+      <Tab.Screen name="Home" component={Entrepreneur} options={{ tabBarLabel: "Inicio" }}/>
+      <Tab.Screen name="AddBusiness" component={AddBusiness} options={{ tabBarLabel: "Agregar" }}/>
+      <Tab.Screen name="AccountEntrepreneur" component={AccountEntrepreneur} options={{ tabBarLabel: "Yo" }}/>
     </Tab.Navigator>
   );
 }
