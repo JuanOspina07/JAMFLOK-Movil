@@ -1,9 +1,15 @@
-import { Alert } from "react-native";
+import Toast from "react-native-toast-message";
 
 export const LoginLogic = (login, navigation) => {
   const handleLogin = async (nombreUsuario, contraseña, setLoading) => {
     if (!nombreUsuario || !contraseña) {
-      Alert.alert("Campos vacíos", "Por favor completa todos los campos.");
+      Toast.show({
+        type: "error",
+        text1: "Campos vacíos",
+        text2: "Por favor completa todos los campos." ,
+        position: "bottom",
+        visibilityTime: 2000,
+      });
       return;
     }
 
@@ -13,12 +19,24 @@ export const LoginLogic = (login, navigation) => {
       setLoading(false);
 
       if (!result.success) {
-        Alert.alert("Error", result.message || "Credenciales incorrectas");
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: result.message || "Credenciales incorrectas",
+          position: "bottom",
+          visibilityTime: 2000,
+        });
       }
     } catch (error) {
       setLoading(false);
       console.log("Error en loginLogic:", error);
-      Alert.alert("Error", "Ocurrió un problema al iniciar sesión.");
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Ocurrió un problema al iniciar sesión.",
+        position: "bottom",
+        visibilityTime: 2000,
+      });
     }
   };
 

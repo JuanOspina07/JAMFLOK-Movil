@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,ActivityIndicator } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 
@@ -19,42 +19,35 @@ export default function Cuenta() {
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [rolSeleccionado, setRolSeleccionado] = useState("");
-  const [passwordChecks, setPasswordChecks] = useState({length: false,uppercase: false,number: false,special: false,});
-  const { roles, loading, handleRegister: handleRegisterLogic, validateAccountFields } = useCuentaLogic();
+  const [passwordChecks, setPasswordChecks] = useState({
+    length: false,
+    uppercase: false,
+    number: false,
+    special: false,
+  });
 
+  const { roles, loading, handleRegister: handleRegisterLogic } = useCuentaLogic();
+
+  // Actualiza los checks de la contraseña en tiempo real
   useEffect(() => {
     const { passwordChecks } = validatePassword(contraseña, false);
     setPasswordChecks(passwordChecks);
   }, [contraseña]);
 
-  
   const handleRegister = async () => {
-    // Validar campos primero (excepto contraseña)
-    const fieldValidation = validateAccountFields({ nombreUsuario, correo, rolSeleccionado });
-    if (!fieldValidation.valid) {
-      Alert.alert("Campos inválidos", fieldValidation.message);
-      return;
-    }
+    // Usamos la lógica completa de handleRegisterLogic
+    const success = await handleRegisterLogic(datos, {
+      nombreUsuario,
+      correo,
+      contraseña,
+      rolSeleccionado,
+    });
 
-    // Validar contraseña (solo muestra alerta si los otros campos son válidos)
-    const { isValid } = validatePassword(contraseña, true);
-    if (!isValid) return;
-
-    try {
-      const success = await handleRegisterLogic(datos, {
-        nombreUsuario,
-        correo,
-        contraseña,
-        rolSeleccionado
-      });
-
-      if (success) {
-        navigation.replace("Login");
-      }
-    } catch (error) {
-      console.error("Error en el registro:", error);
+    if (success) {
+      navigation.replace("Login");
     }
   };
+
 
   return (
     <View style={stylesGlobal.container}>

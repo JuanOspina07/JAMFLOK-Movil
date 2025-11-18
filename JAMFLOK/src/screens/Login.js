@@ -35,7 +35,6 @@ export default function Login() {
           INICIO DE SESIÓN
         </Text>
 
-        {/* Campo usuario */}
         <Text style={[stylesGlobal.label, { left: 10 }]}>Nombre de Usuario</Text>
         <TextInput
           style={stylesGlobal.input}

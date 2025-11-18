@@ -59,7 +59,6 @@ export default function DatosPersonales() {
           </Text>
         </TouchableOpacity>
 
-        {/* Picker nativo */}
         {showDatePicker && (
           <DateTimePicker
             mode="date"

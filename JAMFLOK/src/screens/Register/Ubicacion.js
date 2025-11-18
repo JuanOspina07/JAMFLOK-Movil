@@ -58,8 +58,6 @@ export default function Ubicacion() {
       <GradientBackground>
         <ProgressBar step={2} totalSteps={3} />
         <Text style={stylesGlobal.title}>Ubicación y Documento</Text>
-        
-
 
         <View style={{...stylesGlobal.input,paddingVertical: 0,justifyContent: "center",}}>
           {loading ? (
