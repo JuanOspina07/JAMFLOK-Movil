@@ -41,7 +41,7 @@ export const LoginLogic = (login, navigation) => {
   };
 
   const handleRecuperar = () => {
-    navigation.navigate("Recuperar");
+    navigation.navigate("RecoverPassword");
   };
 
   return { handleLogin, handleRecuperar };

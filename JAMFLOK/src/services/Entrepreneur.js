@@ -98,3 +98,14 @@ export const postBusiness = async (data) => {
     );
   }
 };
+
+export const getInfoEntrepreneur = async (id)=>{
+    try {
+        const response = await api.get(`/usuario/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(
+            error.response?.data?.message || "Error al obtener informacion del emprendedor."
+        );
+    }
+}

@@ -11,7 +11,7 @@ import { AuthContext } from "../../context/authContext";
 import { cargarNegociosLogic, filtrarNegociosLogic, renderStarsLogic,} from "../../logic/EntrepreneurLogic";
 
 export default function Entrepreneur() {
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const [search, setSearch] = useState("");
@@ -30,31 +30,11 @@ export default function Entrepreneur() {
   };
 
   const negociosFiltrados = filtrarNegociosLogic(negocios, search);
-  const handleLogout = () => {
-    logout();
-  };
 
   return (
     <GradientBackground>
       <View style={styles.container}>
-        {/* Botón de cerrar sesión */}
-        <TouchableOpacity
-          style={{
-            position: "absolute",
-            top: 40,
-            right: 20,
-            zIndex: 10,
-            backgroundColor: "#FF4D4D",
-            padding: 10,
-            borderRadius: 10,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-          onPress={handleLogout}
-        >
-          <Ionicons name="exit-outline" size={20} color="#fff" />
-          <Text style={{ color: "#fff", marginLeft: 5 }}>Cerrar sesión</Text>
-        </TouchableOpacity>
+        
         <View style={styles.searchContainer}>
           <Ionicons name="search" size={20} color="#555" />
           <TextInput
