@@ -175,15 +175,15 @@ export default function RecoverPassword() {
 
             {!keyboardVisible && (
               <View style={styles.footer}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Privacidad")}>
                   <Text style={styles.footerText}>Privacidad</Text>
                 </TouchableOpacity>
                 <Text style={styles.footerSeparator}>|</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Ayuda")}>
                   <Text style={styles.footerText}>Ayuda</Text>
                 </TouchableOpacity>
                 <Text style={styles.footerSeparator}>|</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Terminos")}>
                   <Text style={styles.footerText}>Términos</Text>
                 </TouchableOpacity>
               </View>

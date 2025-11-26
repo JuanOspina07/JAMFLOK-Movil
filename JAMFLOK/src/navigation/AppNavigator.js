@@ -11,6 +11,10 @@ import RegistroNavigator from "./RegistroNavigator";
 import OptionsEntrepreneur from "./OptionsEntrepreneur";
 import BusinessDetails from "../screens/Entrepreuner/BusinessDetails";
 import OptionsAdmin from "./OptionsAdmin";
+import Terminos from "../screens/Home/Terminos";
+
+import Privacidad from '../screens/Home/Privacidad'; 
+import Ayuda from '../screens/Home/Ayuda'; 
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +25,9 @@ function AuthStack() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={RegistroNavigator} />
       <Stack.Screen name="RecoverPassword" component={RecoverPassword} />
+      <Stack.Screen name="Terminos" component={Terminos} />
+      <Stack.Screen name="Privacidad" component={Privacidad} />
+      <Stack.Screen name="Ayuda" component={Ayuda} />
     </Stack.Navigator>
   );
 }
@@ -30,7 +37,7 @@ function AppStack({ user }) {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {(() => {
         switch (user.idRol) {
-          case 1: 
+          case 1:
             return (
               <>
                 <Stack.Screen name="Emprendedor" component={OptionsEntrepreneur} />
@@ -45,7 +52,7 @@ function AppStack({ user }) {
               </>
             );
 
-          case 3: 
+          case 3:
             return (
               <>
                 <Stack.Screen name="Admin" component={OptionsAdmin} />
@@ -53,18 +60,12 @@ function AppStack({ user }) {
             );
 
           default:
-            return (
-              <Stack.Screen
-                name="Login"
-                component={Login}
-              />
-            );
+            return <Stack.Screen name="Login" component={Login} />;
         }
       })()}
     </Stack.Navigator>
   );
 }
-
 
 export default function AppNavigator() {
   const { user, loading } = useContext(AuthContext);
