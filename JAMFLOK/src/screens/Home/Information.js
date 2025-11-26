@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  Animated
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import GradientBackground from "../../hooks/gradientBackground";
@@ -16,12 +17,42 @@ import styles from "../../styles/styleInformation";
 export default function Information() {
   const navigation = useNavigation();
   const fontsLoaded = useLoadFonts();
+  
+  const scrollViewRef = useRef(null);
+  const [scrollBarHeight, setScrollBarHeight] = useState(0);
+  const [scrollBarTop, setScrollBarTop] = useState(new Animated.Value(0));
+  const [contentHeight, setContentHeight] = useState(0);
+  const [scrollViewHeight, setScrollViewHeight] = useState(0);
+
+  const updateScrollBar = (event) => {
+    const { y } = event.nativeEvent.contentOffset;
+    const contentHeight = event.nativeEvent.contentSize.height;
+    const scrollViewHeight = event.nativeEvent.layoutMeasurement.height;
+    
+    // Calcular la posición de la barra de scroll
+    const scrollableHeight = contentHeight - scrollViewHeight;
+    const scrollProgress = y / scrollableHeight;
+    const barHeight = Math.max(30, scrollViewHeight * (scrollViewHeight / contentHeight));
+    const top = scrollProgress * (scrollViewHeight - barHeight);
+    
+    setScrollBarHeight(barHeight);
+    scrollBarTop.setValue(top);
+  };
+
+  const onContentSizeChange = (contentWidth, contentHeight) => {
+    setContentHeight(contentHeight);
+  };
+
+  const onScrollViewLayout = (event) => {
+    const { height } = event.nativeEvent.layout;
+    setScrollViewHeight(height);
+  };
 
   if (!fontsLoaded) {
     return (
       <GradientBackground>
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <ActivityIndicator size="large" color="#404040" /> {/* Cambiado a gris oscuro */}
+          <ActivityIndicator size="large" color="#293a50" />
         </View>
       </GradientBackground>
     );
@@ -80,25 +111,47 @@ export default function Information() {
       <View style={styles.screen}>
         <View style={styles.mainContent}>
           <View style={styles.card}>
-            <ScrollView 
-              style={styles.scrollContainer}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.scrollContent}
-            >
-              <Image 
-                source={require("../../../assets/images/logo.png")} 
-                style={styles.logo} 
-              />
+            <View style={styles.scrollViewContainer}>
+              <ScrollView 
+                ref={scrollViewRef}
+                style={styles.scrollContainer}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.scrollContent}
+                onScroll={updateScrollBar}
+                scrollEventThrottle={16}
+                onContentSizeChange={onContentSizeChange}
+                onLayout={onScrollViewLayout}
+              >
+                <Image 
+                  source={require("../../../assets/images/logo.png")} 
+                  style={styles.logo} 
+                />
+                
+                <Text style={styles.title}>{informationData.title}</Text>
+                
+                {informationData.sections.map((section, index) => (
+                  <View key={index} style={styles.section}>
+                    <Text style={styles.sectionTitle}>{section.title}</Text>
+                    <Text style={styles.sectionContent}>{section.content}</Text>
+                  </View>
+                ))}
+              </ScrollView>
               
-              <Text style={styles.title}>{informationData.title}</Text>
-              
-              {informationData.sections.map((section, index) => (
-                <View key={index} style={styles.section}>
-                  <Text style={styles.sectionTitle}>{section.title}</Text>
-                  <Text style={styles.sectionContent}>{section.content}</Text>
+              {/* Barra de scroll personalizada */}
+              {contentHeight > scrollViewHeight && (
+                <View style={styles.scrollBarContainer}>
+                  <Animated.View 
+                    style={[
+                      styles.scrollBarThumb,
+                      {
+                        height: scrollBarHeight,
+                        transform: [{ translateY: scrollBarTop }]
+                      }
+                    ]}
+                  />
                 </View>
-              ))}
-            </ScrollView>
+              )}
+            </View>
           </View>
         </View>
       </View>

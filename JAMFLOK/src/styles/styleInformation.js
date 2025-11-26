@@ -19,19 +19,38 @@ export default StyleSheet.create({
   },
   card: {
     width: "100%",
-    maxWidth: 380, // Reducido de 400 a 380 (un poco más pequeño)
-    backgroundColor: "rgba(255, 255, 255, 0.12)",
+    maxWidth: 328,
+    backgroundColor: "#ede9e6",
     borderRadius: 20,
-    paddingVertical: 22, // Reducido de 25 a 22
-    paddingHorizontal: 18, // Reducido de 20 a 18
-    marginTop: 20,
-    marginBottom: 20,
+    paddingVertical: 22,
+    paddingHorizontal: 18,
+    marginTop: 85,
+    marginBottom: 80,
+  },
+  scrollViewContainer: {
+    width: "100%",
+    flexDirection: "row",
   },
   scrollContainer: {
-    width: "100%",
+    flex: 1,
   },
   scrollContent: {
     paddingBottom: 10,
+  },
+  // Barra de scroll personalizada
+  scrollBarContainer: {
+    width: 6,
+    backgroundColor: "rgba(41, 58, 80, 0.1)", // Color de fondo de la barra (muy claro)
+    borderRadius: 3,
+    marginLeft: 8,
+    marginVertical: 5,
+  },
+  scrollBarThumb: {
+    width: 6,
+    backgroundColor: "#293a50", // Color de la barra (igual al texto)
+    borderRadius: 3,
+    position: "absolute",
+    left: 0,
   },
   logo: {
     width: 100,
@@ -43,7 +62,7 @@ export default StyleSheet.create({
   title: {
     fontFamily: typography.bold,
     fontSize: 24,
-    color: "#404040", // Cambiado a gris oscuro
+    color: "#293a50",
     marginBottom: 20,
     textAlign: "center",
     fontWeight: "600",
@@ -55,7 +74,7 @@ export default StyleSheet.create({
   sectionTitle: {
     fontFamily: typography.bold,
     fontSize: 18,
-    color: "#404040", // Cambiado a gris oscuro
+    color: "#293a50",
     marginBottom: 8,
     textAlign: "left",
     fontWeight: "600",
@@ -64,8 +83,7 @@ export default StyleSheet.create({
     fontFamily: typography.regular,
     fontSize: 14,
     textAlign: "left",
-    color: "#404040", // Cambiado a gris oscuro
-    opacity: 0.9,
+    color: "#293a50",
     lineHeight: 20,
   },
   footer: {
