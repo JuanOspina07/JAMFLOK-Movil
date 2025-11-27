@@ -15,19 +15,20 @@ export default StyleSheet.create({
   },
 
   backTopLeft: {
-    position: "absolute",
-    top: Platform.OS === "ios" ? 7 : 20,
-    left: 12,
-    zIndex: 50,
-    padding: 8,
-    backgroundColor: "transparent", 
-  },
-  backArrow: {
-    fontSize: 30,
-    color: colors.cardInnerLight || "#EDE9E6", 
-    fontFamily: typography.bold || undefined,
-    fontWeight: "700",
-  },
+  position: "absolute",
+  top: Platform.OS === "ios" ? 9 : 40, 
+  left: 12,
+  zIndex: 50,
+  padding: 8,
+  backgroundColor: "transparent",
+},
+
+backArrow: {
+  fontSize: 28,
+  color: "#fff",
+  fontWeight: "700",
+},
+
 
   mainContent: {
     width: "100%",
