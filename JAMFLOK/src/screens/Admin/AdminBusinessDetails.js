@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, ScrollView, TextInput, TouchableOpacity, Switch, ActivityIndicator,} from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  Switch,
+  ActivityIndicator,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
-
 
 import GradientBackground from "../../hooks/gradientBackground";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -12,10 +20,14 @@ import styles from "../../styles/styleBusinessDetails";
 import { formatDateReview } from "../../utils/formDate";
 import { formatPrice } from "../../utils/formPrice";
 
-import { cargarDatosBusiness,cargarReviewBusiness,cambiarEstadoNegocioLogic, cambiarEstadoProductoLogic} from "../../logic/BusinessLogic";
+import {
+  cargarDatosBusiness,
+  cargarReviewBusiness,
+  cambiarEstadoNegocioLogic,
+  cambiarEstadoProductoLogic,
+} from "../../logic/BusinessLogic";
 
-export default function BusinessDetails({ route, navigation }) {
-
+export default function AdminBusinessDetail({ route, navigation }) {
   const { idNegocio } = route.params;
 
   const [loading, setLoading] = useState(true);
@@ -26,25 +38,40 @@ export default function BusinessDetails({ route, navigation }) {
   const [estadoNegocio, setEstadoNegocio] = useState(false);
   const [reseñas, setReseñas] = useState([]);
 
-
   const [modalNegocioVisible, setModalNegocioVisible] = useState(false);
   const [modalProductoVisible, setModalProductoVisible] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
- useFocusEffect(
-  useCallback(() => {
-    cargarDatosBusiness(idNegocio, setNegocio, setProductos, setEstadoNegocio, setLoading);
-    cargarReviewBusiness(idNegocio, setReseñas);
-  }, [idNegocio])
-);
+  useFocusEffect(
+    useCallback(() => {
+      cargarDatosBusiness(
+        idNegocio,
+        setNegocio,
+        setProductos,
+        setEstadoNegocio,
+        setLoading
+      );
+      cargarReviewBusiness(idNegocio, setReseñas);
+    }, [idNegocio])
+  );
 
   const toggleExpand = (id) => {
     setExpandido((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const AddProduct = () => {
+    navigation.navigate("AddProducts", { idNegocio });
+  };
+
   const confirmarCambioNegocio = async () => {
     setModalNegocioVisible(false);
-    await cambiarEstadoNegocioLogic( idNegocio, estadoNegocio, negocio, setEstadoNegocio, setNegocio);
+    await cambiarEstadoNegocioLogic(
+      idNegocio,
+      estadoNegocio,
+      negocio,
+      setEstadoNegocio,
+      setNegocio
+    );
   };
 
   const abrirModalProducto = (producto) => {
@@ -64,7 +91,9 @@ export default function BusinessDetails({ route, navigation }) {
   if (loading) {
     return (
       <GradientBackground>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
           <ActivityIndicator size="large" color="#fff" />
         </View>
       </GradientBackground>
@@ -99,11 +128,16 @@ export default function BusinessDetails({ route, navigation }) {
               <Text style={styles.nombreNegocio}>{negocio.NombreNegocio}</Text>
 
               <View style={styles.rowButtons}>
-                <TouchableOpacity style={styles.btnSmall} onPress={() => navigation.navigate("EditBusiness", { idNegocio})}>
+                <TouchableOpacity style={styles.btnSmall} onPress={AddProduct}>
                   <Ionicons name="pencil" size={18} color="#fff" />
                 </TouchableOpacity>
 
-                <Switch value={estadoNegocio} onValueChange={() => setModalNegocioVisible(true)} thumbColor="#fff" trackColor={{ true: "#2F4156", false: "#777" }}/>
+                <Switch
+                  value={estadoNegocio}
+                  onValueChange={() => setModalNegocioVisible(true)}
+                  thumbColor="#fff"
+                  trackColor={{ true: "#2F4156", false: "#777" }}
+                />
               </View>
             </View>
           </View>
@@ -128,7 +162,10 @@ export default function BusinessDetails({ route, navigation }) {
           <View style={styles.productosHeader}>
             <Text style={styles.productosTitulo}>Productos</Text>
 
-            <TouchableOpacity style={styles.btnAdd} onPress={() => navigation.navigate("AddProducts", { idNegocio })}>
+            <TouchableOpacity
+              style={styles.btnAdd}
+              onPress={() => navigation.navigate("AddProducts", { idNegocio })}
+            >
               <Ionicons name="add" size={20} color="#fff" />
               <Text style={styles.btnAddText}>Añadir Producto</Text>
             </TouchableOpacity>
@@ -158,34 +195,58 @@ export default function BusinessDetails({ route, navigation }) {
                       </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate("EditProducts", { idProducto: p.ID_PRODUCTOS,})}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("EditarProducto", {
+                          idProducto: p.ID_PRODUCTOS,
+                        })
+                      }
+                    >
                       <Ionicons name="pencil" size={20} color="#2F4156" />
                     </TouchableOpacity>
 
-                    <Switch value={p.Estado === 1} onValueChange={() => abrirModalProducto(p)} thumbColor="#fff" trackColor={{ true: "#2F4156", false: "#999" }}/>
+                    <Switch
+                      value={p.Estado === 1}
+                      onValueChange={() => abrirModalProducto(p)}
+                      thumbColor="#fff"
+                      trackColor={{ true: "#2F4156", false: "#999" }}
+                    />
                   </View>
 
                   <View style={styles.cardContent}>
-                    <Image source={{ uri: p.Imagen }} style={styles.imagenProducto} />
+                    <Image
+                      source={{ uri: p.Imagen }}
+                      style={styles.imagenProducto}
+                    />
 
                     <View style={styles.infoProducto}>
-                      <Text style={styles.descripcionProducto} numberOfLines={expandido[p.ID_PRODUCTOS] ? undefined : 3}>
+                      <Text
+                        style={styles.descripcionProducto}
+                        numberOfLines={
+                          expandido[p.ID_PRODUCTOS] ? undefined : 3
+                        }
+                      >
                         {p.Descripcion}
                       </Text>
 
-                      <TouchableOpacity onPress={() => toggleExpand(p.ID_PRODUCTOS)}>
+                      <TouchableOpacity
+                        onPress={() => toggleExpand(p.ID_PRODUCTOS)}
+                      >
                         <Text style={styles.verMas}>
                           {expandido[p.ID_PRODUCTOS] ? "Ver menos" : "Ver más"}
                         </Text>
                       </TouchableOpacity>
 
-                      <Text style={styles.precioProducto}>{formatPrice(p.Precio)}</Text>
+                      <Text style={styles.precioProducto}>
+                        {formatPrice(p.Precio)}
+                      </Text>
                     </View>
                   </View>
                 </View>
               ))
             )}
           </View>
+
           <View style={styles.reseñasContainer}>
             <Text style={styles.reseñasTitulo}>Reseñas del negocio</Text>
 
@@ -208,10 +269,10 @@ export default function BusinessDetails({ route, navigation }) {
                     </View>
                   </View>
 
-                  <Text style={styles.reseñaComentario}>
-                    {r.Descripcion}
+                  <Text style={styles.reseñaComentario}>{r.Descripcion}</Text>
+                  <Text style={styles.reseñaFecha}>
+                    {formatDateReview(r.Fecha)}
                   </Text>
-                  <Text style={styles.reseñaFecha}>{formatDateReview(r.Fecha)}</Text>
                 </View>
               ))
             )}

@@ -1,0 +1,133 @@
+import { StyleSheet } from "react-native";
+import colors from "./colors";
+
+export default StyleSheet.create({
+  container: {
+    padding: 10,
+    width: "90%",
+  },
+  headerContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 0,
+    alignSelf: "flex-start",
+    marginTop: 30,
+  },
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 10,
+  },
+  titulo: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 25,
+    letterSpacing: 0.5,
+  },
+  label: {
+    fontSize: 15,
+    color: colors.textPrimary,
+    marginBottom: 6,
+    marginTop: 14,
+    fontWeight: "500",
+  },
+    inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    paddingHorizontal: 12,
+    borderWidth: 2,
+    borderColor: colors.textSecundary,
+    marginBottom: 10,
+    shadowColor: "#202121ff",
+    shadowRadius: 8,
+    shadowOpacity: 0.3,
+    elevation: 4,
+  },
+
+  input: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    fontSize: 15,
+    color: colors.icon,
+  },
+
+  textArea: {
+    height: "100%",
+    textAlignVertical: "top",
+    paddingTop: 12,
+  },
+
+  preview: {
+    width: "100%",
+    height: 200,
+    borderRadius: 14,
+    marginTop: 10,
+    overflow: "hidden",
+    borderWidth: 2,
+    borderColor: colors.primary,
+  },
+  previewPlaceholder: {
+    width: "100%",
+    height: 200,
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    backgroundColor: "#fff",
+    shadowColor: "#202121ff",
+    shadowRadius: 8,
+    shadowOpacity: 0.3,
+    elevation: 4,
+  },
+  previewText: {
+    color: "#cfd6db",
+    marginTop: 6,
+    fontSize: 14,
+  },
+  btnImage: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    padding: 12,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 15,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  btnImageText: {
+    color: "#fff",
+    marginLeft: 8,
+    fontSize: 15,
+    fontWeight: "500",
+  },
+  btnGuardar: {
+    backgroundColor: colors.primary,
+    padding: 17,
+    marginTop: 32,
+    borderRadius: 14,
+    alignItems: "center",
+    shadowColor: "#202121ff",
+    shadowRadius: 8,
+    shadowOpacity: 0.3,
+    elevation: 4,
+    marginBottom: 30,
+  },
+  btnGuardarText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    letterSpacing: 0.3,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 14,
+  },
+
+});

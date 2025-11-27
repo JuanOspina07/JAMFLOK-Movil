@@ -109,3 +109,25 @@ export const getInfoEntrepreneur = async (id)=>{
         );
     }
 }
+export const updateInfoEntrepreneur = async (idUsuario, data) => {
+  try {
+    const response = await api.put(`/usuario/${idUsuario}`, data);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Error al actualizar la información del emprendedor."
+    );
+  }
+};
+
+export const postProducts = async (data) => {
+  try {
+    const response = await api.post(`/productosnuevo`, data);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message ||
+        "Error al registrar el producto."
+    );
+  }
+};

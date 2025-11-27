@@ -57,8 +57,8 @@ export default function AddBusinessScreen() {
   return (
     <GradientBackground>
       <View style={styles.headerContainer}> 
+        <Text style={styles.title}>Registrar negocio</Text>
         <Image source={require("../../../assets/images/logo.png")} style={styles.headerLogo} />
-         <Text style={styles.title}>Registrar negocio</Text> 
       </View>
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
         <Text style={styles.label}>Imagen de fondo (banner):</Text>
@@ -114,41 +114,48 @@ export default function AddBusinessScreen() {
           onChangeText={setDescripcion}
         />
 
-        <Text style={styles.label}>Ciudad:</Text>
-        <TextInput
-          placeholder="Escribe la ciudad..."
-          style={styles.inputBox}
-          value={searchCity}
-          onChangeText={(text) => setSearchCity(text)}
-          onFocus={() => searchCity && setShowDropdown(filteredCities.length > 0)}
-        />
-        {showDropdown && (
-          <ScrollView
-            style={{
-              maxHeight: 150,
-              borderWidth: 1,
-              borderColor: "#ccc",
-              borderRadius: 8,
-              backgroundColor: "#fff",
-              marginBottom: 10,
-            }}
-            keyboardShouldPersistTaps="handled"
-          >
-            {filteredCities.map(item => (
-              <TouchableOpacity
-                key={item.ID_CIUDAD}
-                style={{ padding: 10, borderBottomWidth: 1, borderColor: "#eee" }}
-                onPress={() => {
-                  setCiudad(item.ID_CIUDAD);
-                  setSearchCity(item.Nombre);
-                  setShowDropdown(false);
-                }}
-              >
-                <Text>{item.Nombre}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        )}
+        <View style={{ marginBottom: 10, position: 'relative' }}>
+          <Text style={styles.label}>Ciudad:</Text>
+          <TextInput
+            placeholder="Escribe la ciudad..."
+            style={styles.inputBox}
+            value={searchCity}
+            onChangeText={(text) => setSearchCity(text)}
+            onFocus={() => searchCity && setShowDropdown(filteredCities.length > 0)}
+          />
+          {showDropdown && (
+            <ScrollView
+              style={{
+                position: 'absolute',
+                top: 45,
+                left: 0,
+                right: 0,
+                maxHeight: 150,
+                borderWidth: 1,
+                borderColor: "#ccc",
+                borderRadius: 8,
+                backgroundColor: "#fff",
+                zIndex: 10,
+              }}
+              nestedScrollEnabled={true}
+              keyboardShouldPersistTaps="handled"
+            >
+              {filteredCities.map(item => (
+                <TouchableOpacity
+                  key={item.ID_CIUDAD}
+                  style={{ padding: 10, borderBottomWidth: 1, borderColor: "#eee" }}
+                  onPress={() => {
+                    setCiudad(item.ID_CIUDAD);
+                    setSearchCity(item.Nombre);
+                    setShowDropdown(false);
+                  }}
+                >
+                  <Text>{item.Nombre}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          )}
+        </View>
 
         <View style={styles.inputBox}>
           <Ionicons name="location-outline" size={22} style={styles.inputIcon} />

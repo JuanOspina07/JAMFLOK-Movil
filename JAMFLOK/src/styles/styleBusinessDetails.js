@@ -7,6 +7,13 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 50,
   },
+  topBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15,
+    gap: 10,
+    width: "100%",
+  },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -14,8 +21,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     height: 40,
-    marginBottom: 10,
-    width: "100%",
+    flex: 1,
   },
   searchInput: {
     flex: 1,
@@ -169,7 +175,6 @@ export default StyleSheet.create({
     fontSize: 14,
   },
 
-  //Estilo de reseñas
   reseñasContainer: {
     marginTop: 30,
   },

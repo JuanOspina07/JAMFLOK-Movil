@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Image, TextInput, ScrollView,TouchableOpacity, ActivityIndicator, RefreshControl,} from "react-native";
+import { View, Text, Image, TextInput, ScrollView, TouchableOpacity, ActivityIndicator, RefreshControl,} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "../../styles/styleCardbusiness";
@@ -34,7 +34,6 @@ export default function Entrepreneur() {
   return (
     <GradientBackground>
       <View style={styles.container}>
-        
         <View style={styles.searchContainer}>
           <Ionicons name="search" size={20} color="#555" />
           <TextInput
@@ -49,7 +48,7 @@ export default function Entrepreneur() {
         <Text style={styles.title}>Mis negocios</Text>
 
         {loading ? (
-          <ActivityIndicator size="large" color="#fff" style={{ marginTop: 20 }} />
+          <ActivityIndicator size="large" color="#fff" style={{ marginTop: 20 }}/>
         ) : (
           <ScrollView
             style={styles.scroll}
@@ -66,44 +65,35 @@ export default function Entrepreneur() {
           >
             <View style={styles.grid}>
               {negociosFiltrados.length === 0 ? (
-                <Text style={styles.noData}>No tienes negocios registrados aún.</Text>
+                <Text style={styles.noData}> No tienes negocios registrados aún.</Text>
               ) : (
                 negociosFiltrados.map((negocio) => (
-                  
                   <AnimatedCard
                     key={negocio.ID_NEGOCIOS}
-                    style={[styles.card, negociosFiltrados.length === 1 && { width: "100%" }]}
-                    onPress={() =>
-                      navigation.navigate("NegocioDetalles", {
-                        idNegocio: negocio.ID_NEGOCIOS,
-                      })
-                    }
+                    style={[ styles.card, negociosFiltrados.length === 1 && { width: "100%" },]}
+                    onPress={() => navigation.navigate("NegocioDetalles", {idNegocio: negocio.ID_NEGOCIOS,})}
                   >
-                    <View style={styles.starsContainer}>
-                      {renderStarsLogic(negocio.rating || 0).map((star, i) => (
-                        <Ionicons
-                          key={i}
-                          name={star.filled ? "star" : "star-outline"}
-                          size={18}
-                          color="#FFDF00"
-                          style={{ marginRight: 2 }}
-                        />
-                      ))}
-                    </View>
-
-                    <Image source={{ uri: negocio.Imagen }} style={styles.mainImage} />
-                    <Image
-                      source={{ uri: negocio.Logo }}
-                      style={styles.logo}
-                      resizeMode="contain"
-                    />
+                    <Image source={{ uri: negocio.Imagen }} style={styles.mainImage}/>
+                    <Image source={{ uri: negocio.Logo }} style={styles.logo} resizeMode="contain"/>
 
                     <View style={styles.infoContainer}>
                       <Text style={styles.nombre}>{negocio.NombreNegocio}</Text>
-                      <Text style={styles.categoria}>
-                        Categoría: {negocio.Categorias}
-                      </Text>
-                      <Text style={styles.descripcion}>{negocio.Descripcion}</Text>
+                      <View style={styles.starsContainer}>
+                        {renderStarsLogic(negocio.rating || 0).map(
+                          (star, i) => (
+                            <Ionicons
+                              key={i}
+                              name={star.filled ? "star" : "star-outline"}
+                              size={18}
+                              marginTop={12}
+                              color="#c7c7c7"
+                              style={{ marginRight: 2 }}
+                            />
+                          )
+                        )}
+                      </View>
+                      <Text style={styles.categoria}> Categoría: {negocio.Categorias} </Text>
+                      <Text style={styles.descripcion}> {negocio.Descripcion} </Text>
                     </View>
                   </AnimatedCard>
                 ))

@@ -28,3 +28,15 @@ export function formatDateReview(fechaOriginal) {
 
   return `${diaSemana}, ${dia} ${mes} ${año} · ${horas}:${minutos} ${ampm}`;
 }
+export const formatDateAccount = (dateString) => {
+  if (!dateString) return "";
+
+  // Extrae solo la fecha, ignorando la hora UTC
+  const clean = dateString.split("T")[0]; // "2005-11-25"
+
+  const [year, month, day] = clean.split("-");
+
+  return `${day}/${month}/${year}`; // DD/MM/YYYY
+};
+
+

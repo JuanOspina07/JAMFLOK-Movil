@@ -30,5 +30,6 @@ export default function useAccountEntrepreneur(idUsuario) {
     userData,
     loading,
     error,
+    loadUserData, 
   };
 }

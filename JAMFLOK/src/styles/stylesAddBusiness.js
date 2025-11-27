@@ -14,8 +14,8 @@ export default StyleSheet.create({
     paddingTop: 10,
   },
   headerLogo: {
-    width: 110,
-    height: 110,
+    width: 130,
+    height: 130,
     resizeMode: "contain",
     alignSelf: "center",
     marginBottom: 10,
@@ -27,7 +27,6 @@ export default StyleSheet.create({
     marginBottom: 25,
     color: "#ffffff",
   },
-
   uploadBox: {
     width: "100%",
     backgroundColor: "#fff",
@@ -62,7 +61,6 @@ export default StyleSheet.create({
     marginBottom: 5,
     fontWeight: "600",
   },
-
   inputBox: {
     backgroundColor: "#fff",
     borderRadius: 12,
@@ -80,7 +78,6 @@ export default StyleSheet.create({
     flex: 1,
     height: "100%",
   },
-
   textArea: {
     backgroundColor: "#fff",
     borderRadius: 12,
@@ -88,7 +85,6 @@ export default StyleSheet.create({
     height: 120,
     marginBottom: 15,
   },
-
   button: {
     backgroundColor: "#0d2b4c",
     padding: 15,

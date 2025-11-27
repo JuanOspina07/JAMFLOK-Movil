@@ -8,9 +8,16 @@ import Home from "./OptionsHome";
 import Login from "../screens/Login";
 import RecoverPassword from "../screens/Home/RecoverPassword";
 import RegistroNavigator from "./RegistroNavigator";
+
 import OptionsEntrepreneur from "./OptionsEntrepreneur";
 import BusinessDetails from "../screens/Entrepreuner/BusinessDetails";
+import EditAccountEntrepreneur from "../screens/Entrepreuner/EditAccountEntrepreneur";
+import AddProducts from "../screens/Entrepreuner/AddProducts";
+import EditBusiness from "../screens/Entrepreuner/EditBusiness";
+import EditProduct from "../screens/Entrepreuner/EditProduct";
+
 import OptionsAdmin from "./OptionsAdmin";
+import AdminBusinessDetail from "../screens/Admin/AdminBusinessDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,11 +37,16 @@ function AppStack({ user }) {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {(() => {
         switch (user.idRol) {
-          case 1: 
+          case 1:
             return (
               <>
-                <Stack.Screen name="Emprendedor" component={OptionsEntrepreneur} />
-                <Stack.Screen name="NegocioDetalles" component={BusinessDetails} />
+                <Stack.Screen name="Emprendedor" component={OptionsEntrepreneur}/>
+                <Stack.Screen name="NegocioDetalles" component={BusinessDetails}/>
+                <Stack.Screen name="EditarCuentaEmprendedor" component={EditAccountEntrepreneur}/>
+                <Stack.Screen name="AddProducts" component={AddProducts} />
+                <Stack.Screen name="EditProducts" component={EditProduct} />
+                <Stack.Screen name="EditBusiness" component={EditBusiness} />
+
               </>
             );
 
@@ -45,26 +57,21 @@ function AppStack({ user }) {
               </>
             );
 
-          case 3: 
+          case 3:
             return (
               <>
                 <Stack.Screen name="Admin" component={OptionsAdmin} />
+                <Stack.Screen name="Admin/Negocios" component={AdminBusinessDetail} />
               </>
             );
 
           default:
-            return (
-              <Stack.Screen
-                name="Login"
-                component={Login}
-              />
-            );
+            return <Stack.Screen name="Login" component={Login} />;
         }
       })()}
     </Stack.Navigator>
   );
 }
-
 
 export default function AppNavigator() {
   const { user, loading } = useContext(AuthContext);
