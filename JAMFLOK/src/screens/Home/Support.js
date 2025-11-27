@@ -13,6 +13,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import GradientBackground from "../../hooks/gradientBackground";
 import { useLoadFonts } from "../../hooks/loadFonts";
 import stylesGlobal from "../../styles/stylesGlobal";
+import styles from "../../styles/styleSupport";
 
 // Para animaciones suaves en Android
 if (Platform.OS === "android") {
@@ -186,104 +187,4 @@ export default function Support() {
   );
 }
 
-const styles = StyleSheet.create({
-  bigCard: {
-    width: "92%",
-    backgroundColor: "#FFFFFF",
-    borderWidth: 3,
-    borderColor: "#1A5FA7", // Azul del borde real
-    borderRadius: 20,
-    alignSelf: "center",
-    paddingVertical: 25,
-    paddingHorizontal: 15,
-  },
 
-  bigTitle: {
-    fontSize: 26,
-    fontFamily: "Poppins-SemiBold",
-    textAlign: "center",
-    marginBottom: 25,
-    color: "#2C3B4A", // Azul grisáceo del título
-  },
-
-  sectionHeader: {
-    backgroundColor: "#FFFFFF",
-    borderWidth: 2,
-    borderColor: "#1F2D3D", // Gris oscuro como en los botones
-    borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 18,
-    marginBottom: 12,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-
-  sectionTitle: {
-    fontSize: 18,
-    fontFamily: "Poppins-SemiBold",
-    color: "#1F2D3D",
-  },
-
-  subContent: {
-    marginBottom: 20,
-    marginTop: -5,
-  },
-
-  questionRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 14,
-    paddingHorizontal: 14,
-    borderWidth: 2,
-    borderColor: "#1F2D3D",
-    borderRadius: 12,
-    backgroundColor: "#FFFFFF",
-    marginBottom: 8,
-  },
-
-  questionText: {
-    fontSize: 15,
-    fontFamily: "Poppins-Regular",
-    color: "#1F2D3D",
-  },
-
-  answerBox: {
-    backgroundColor: "#F1F3F5",
-    padding: 12,
-    borderWidth: 2,
-    borderColor: "#1F2D3D",
-    borderRadius: 12,
-    marginBottom: 10,
-  },
-
-  answerText: {
-    fontSize: 14,
-    fontFamily: "Poppins-Regular",
-    color: "#1F2D3D",
-  },
-
-  subText: {
-    marginTop: 10,
-    textAlign: "center",
-    fontSize: 15,
-    color: "#5E6A75", // Gris real del texto
-    fontFamily: "Poppins-Medium",
-  },
-
-  contactBtn: {
-    marginTop: 15,
-    backgroundColor: "#1E324D", // Azul real del botón
-    paddingVertical: 14,
-    borderRadius: 20,
-    alignSelf: "center",
-    width: "60%",
-  },
-
-  contactText: {
-    color: "#FFFFFF",
-    textAlign: "center",
-    fontSize: 16,
-    fontFamily: "Poppins-SemiBold",
-  },
-});
