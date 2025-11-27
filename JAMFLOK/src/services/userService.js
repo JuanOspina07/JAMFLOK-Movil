@@ -1,28 +1,19 @@
-//front bb
-
-const API_BASE = "http://192.168.100.39:4000";   
+import api from "./api";
 
 export const getUsuarios = async () => {
   try {
-    const res = await fetch(`${API_BASE}/api/usuario/completo`);
-    
-    if (!res.ok) {
-      console.log("Error HTTP:", res.status);
-      return [];
+    const response = await api.get("/completo");
+    return response.data;
+    } catch (error) {
+        throw new Error(
+            error.response?.data?.message || "Error al obtener los usuarios."
+        );
     }
-    
-    const data = await res.json();
-    console.log("USUARIOS CARGADOS:", data);
-    return data;
-  } catch (err) {
-    console.log("Error de conexión:", err.message);
-    return [];
-  }
 };
 
 export const getUsuarioById = async (id) => {
   try {
-    const res = await fetch(`${API_BASE}/api/usuario/${id}`);
+    const res = await api.get(`/usuario/${id}`);
     if (!res.ok) return null;
     return await res.json();
   } catch {

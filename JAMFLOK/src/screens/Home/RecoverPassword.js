@@ -71,7 +71,7 @@ export default function RecoverPassword() {
     return (
       <GradientBackground>
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <ActivityIndicator size="center" color={colors.textPrimary} />
+          <ActivityIndicator size="small" color={colors.textPrimary} />
         </View>
       </GradientBackground>
     );
