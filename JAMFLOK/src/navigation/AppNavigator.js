@@ -8,13 +8,19 @@ import Home from "./OptionsHome";
 import Login from "../screens/Login";
 import RecoverPassword from "../screens/Home/RecoverPassword";
 import RegistroNavigator from "./RegistroNavigator";
+
 import OptionsEntrepreneur from "./OptionsEntrepreneur";
 import BusinessDetails from "../screens/Entrepreuner/BusinessDetails";
+import EditAccountEntrepreneur from "../screens/Entrepreuner/EditAccountEntrepreneur";
+import AddProducts from "../screens/Entrepreuner/AddProducts";
+import EditBusiness from "../screens/Entrepreuner/EditBusiness";
+import EditProduct from "../screens/Entrepreuner/EditProduct";
+
 import OptionsAdmin from "./OptionsAdmin";
 import Terminos from "../screens/Home/Terminos";
-
 import Privacidad from '../screens/Home/Privacidad'; 
 import Ayuda from '../screens/Home/Ayuda'; 
+import AdminBusinessDetail from "../screens/Admin/AdminBusinessDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,8 +46,13 @@ function AppStack({ user }) {
           case 1:
             return (
               <>
-                <Stack.Screen name="Emprendedor" component={OptionsEntrepreneur} />
-                <Stack.Screen name="NegocioDetalles" component={BusinessDetails} />
+                <Stack.Screen name="Emprendedor" component={OptionsEntrepreneur}/>
+                <Stack.Screen name="NegocioDetalles" component={BusinessDetails}/>
+                <Stack.Screen name="EditarCuentaEmprendedor" component={EditAccountEntrepreneur}/>
+                <Stack.Screen name="AddProducts" component={AddProducts} />
+                <Stack.Screen name="EditProducts" component={EditProduct} />
+                <Stack.Screen name="EditBusiness" component={EditBusiness} />
+
               </>
             );
 
@@ -56,6 +67,7 @@ function AppStack({ user }) {
             return (
               <>
                 <Stack.Screen name="Admin" component={OptionsAdmin} />
+                <Stack.Screen name="Admin/Negocios" component={AdminBusinessDetail} />
               </>
             );
 

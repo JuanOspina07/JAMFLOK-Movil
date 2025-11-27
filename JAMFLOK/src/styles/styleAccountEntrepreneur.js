@@ -10,9 +10,9 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    color: "#fff",
+    color: colors.textPrimary,
   },
   modalOverlay: {
     flex: 1,
@@ -75,7 +75,7 @@ export default StyleSheet.create({
   card: {
     backgroundColor: "#fff",
     borderRadius: 15,
-    padding: 20,
+    padding: 18,
     marginBottom: 15,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },

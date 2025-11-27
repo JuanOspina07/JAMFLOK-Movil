@@ -1,7 +1,12 @@
 import { getBusiness } from "../services/Entrepreneur";
+import { getAllBusinesses } from "../services/AdminBusinessService";
 import Toast from "react-native-toast-message";
 
-export const cargarNegociosLogic = async (idUsuario, setNegocios, setLoading) => {
+export const cargarNegociosLogic = async (
+  idUsuario,
+  setNegocios,
+  setLoading
+) => {
   try {
     const data = await getBusiness(idUsuario);
     setNegocios(data);
@@ -19,13 +24,29 @@ export const cargarNegociosLogic = async (idUsuario, setNegocios, setLoading) =>
   }
 };
 
+export const getAllNegociosLogic = async ( setNegocios, setLoading) => {
+  try {
+    const data = await getAllBusinesses();
+    setNegocios(data);
+  } catch (error) {
+    console.log("Error cargando negocios", error);
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "No se pudieron cargar los negocios.",
+      position: "bottom",
+      visibilityTime: 2000,
+    });
+  } finally {
+    setLoading(false);
+  }
+};
 
 export const filtrarNegociosLogic = (negocios, search) => {
   return negocios.filter((n) =>
     n?.NombreNegocio?.toLowerCase().includes(search.toLowerCase())
   );
 };
-
 
 export const renderStarsLogic = (rating) => {
   const stars = [];

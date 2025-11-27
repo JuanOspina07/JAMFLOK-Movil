@@ -1,23 +1,39 @@
 import React, { useContext } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, TouchableOpacity, Modal, ScrollView, ActivityIndicator,} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
 
 import GradientBackground from "../../hooks/gradientBackground";
 import useAccountEntrepreneur from "../../logic/AccountEntrepreneurLogic";
 import { AuthContext } from "../../context/authContext";
 import styles from "../../styles/styleAccountEntrepreneur";
 import colors from "../../styles/colors";
+import { formatDateAccount } from "../../utils/formDate";
 
 export default function AccountEntrepreneur() {
   const { user, logout } = useContext(AuthContext);
-  const { modalVisible, setModalVisible, userData, loading, error } = useAccountEntrepreneur(user.idUsuario);
+  const navigation = useNavigation();
+  const {
+    modalVisible,
+    setModalVisible,
+    userData,
+    loading,
+    error,
+    loadUserData,
+  } = useAccountEntrepreneur(user.idUsuario);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadUserData();
+    }, [])
+  );
+
+  const EditNavegation = () => {
+    setModalVisible(false);
+    navigation.navigate("EditarCuentaEmprendedor");
+  };
 
   const handleLogout = () => {
     logout();
@@ -50,15 +66,39 @@ export default function AccountEntrepreneur() {
           </TouchableOpacity>
         </View>
 
-        <Modal transparent visible={modalVisible} animationType="fade" onRequestClose={() => setModalVisible(false)}>
-          <TouchableOpacity style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
+        <Modal
+          transparent
+          visible={modalVisible}
+          animationType="fade"
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <TouchableOpacity
+            style={styles.modalOverlay}
+            onPress={() => setModalVisible(false)}
+          >
             <View style={styles.modalContent}>
-              <TouchableOpacity style={styles.modalOption} onPress={() => {/* acción editar */}}>
-                <Ionicons name="create-outline" size={20} style={styles.modalOptionIcon} />
+              <TouchableOpacity
+                style={styles.modalOption}
+                onPress={() => {
+                  EditNavegation();
+                }}
+              >
+                <Ionicons
+                  name="create-outline"
+                  size={20}
+                  style={styles.modalOptionIcon}
+                />
                 <Text style={styles.modalOptionText}>Editar perfil</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.modalOptionLogout} onPress={handleLogout}>
-                <Ionicons name="log-out-outline" size={20} style={styles.modalOptionIconLogout} />
+              <TouchableOpacity
+                style={styles.modalOptionLogout}
+                onPress={handleLogout}
+              >
+                <Ionicons
+                  name="log-out-outline"
+                  size={20}
+                  style={styles.modalOptionIconLogout}
+                />
                 <Text style={styles.modalOptionTextLogout}>Cerrar sesión</Text>
               </TouchableOpacity>
             </View>
@@ -67,20 +107,27 @@ export default function AccountEntrepreneur() {
 
         <ScrollView
           style={styles.content}
-          contentContainerStyle={{ paddingBottom: 100 }}
+          contentContainerStyle={{ paddingBottom: 90 }}
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.card}>
-            <Ionicons name="person-circle-outline" size={32} color={colors.textSecundary}/>
+            <Ionicons
+              name="person-circle-outline"
+              size={32}
+              color={colors.textSecundary}
+            />
             <View>
               <Text style={styles.label}>Nombre de Usuario</Text>
               <Text style={styles.value}>{userData.NombreUsuario}</Text>
             </View>
-           
           </View>
 
           <View style={styles.card}>
-            <Ionicons name="id-card-outline" size={32} color={colors.textSecundary}/>
+            <Ionicons
+              name="id-card-outline"
+              size={32}
+              color={colors.textSecundary}
+            />
             <View>
               <Text style={styles.label}>Rol</Text>
               <Text style={styles.value}>{userData.NombreRol}</Text>
@@ -88,16 +135,23 @@ export default function AccountEntrepreneur() {
           </View>
 
           <View style={styles.card}>
-            <Ionicons name="lock-closed-outline" size={32} color={colors.textSecundary}/>
+            <Ionicons
+              name="lock-closed-outline"
+              size={32}
+              color={colors.textSecundary}
+            />
             <View>
               <Text style={styles.label}>Contraseña</Text>
               <Text style={styles.value}>********</Text>
             </View>
-            
           </View>
 
           <View style={styles.card}>
-            <Ionicons name="person-outline" size={32} color={colors.textSecundary}/>
+            <Ionicons
+              name="person-outline"
+              size={32}
+              color={colors.textSecundary}
+            />
             <View>
               <Text style={styles.label}>Datos personales</Text>
               <Text style={styles.value}>
@@ -108,13 +162,20 @@ export default function AccountEntrepreneur() {
                 Apellidos: {userData.PrimerApellido} {userData.SegundoApellido}
               </Text>
               <Text style={styles.value}>
-                Documento: {userData.NumDocumento}
+                Fecha Nacimiento: {formatDateAccount(userData.FechaNacimiento)}
+              </Text>
+              <Text style={styles.value}>
+                Documento: {userData.NumeroDocumento}
               </Text>
             </View>
           </View>
 
           <View style={styles.card}>
-            <Ionicons name="call-outline" size={32} color={colors.textSecundary}/>
+            <Ionicons
+              name="call-outline"
+              size={32}
+              color={colors.textSecundary}
+            />
             <View>
               <Text style={styles.label}>Contacto</Text>
               <Text style={styles.value}>Teléfono: {userData.NumTelefono}</Text>

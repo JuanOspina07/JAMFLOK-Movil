@@ -9,25 +9,42 @@
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/logo.png",
-      "resizeMode": "contain"    
+      "resizeMode": "contain"
     },
+
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#e90404"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.JAMFLOK"
+      "package": "com.anonymous.JAMFLOK",
+
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
+
     "web": {
       "favicon": "./assets/images/icon.png"
     },
+
     "plugins": [
-      "expo-font"
+      "expo-font",
+
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "La app necesita acceder a tus fotos para subir imágenes de productos."
+        }
+      ]
     ],
+
     "extra": {
       "eas": {
         "projectId": "1ed7d888-a541-404e-8e28-b72e18082752"
