@@ -17,6 +17,9 @@ import EditBusiness from "../screens/Entrepreuner/EditBusiness";
 import EditProduct from "../screens/Entrepreuner/EditProduct";
 
 import OptionsAdmin from "./OptionsAdmin";
+import Terminos from "../screens/Home/Terminos";
+import Privacidad from '../screens/Home/Privacidad'; 
+import Ayuda from '../screens/Home/Ayuda'; 
 import AdminBusinessDetail from "../screens/Admin/AdminBusinessDetails";
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +31,9 @@ function AuthStack() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={RegistroNavigator} />
       <Stack.Screen name="RecoverPassword" component={RecoverPassword} />
+      <Stack.Screen name="Terminos" component={Terminos} />
+      <Stack.Screen name="Privacidad" component={Privacidad} />
+      <Stack.Screen name="Ayuda" component={Ayuda} />
     </Stack.Navigator>
   );
 }
