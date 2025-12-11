@@ -5,20 +5,16 @@ import {
   TouchableOpacity,
   StyleSheet,
   LayoutAnimation,
-  Platform,
-  UIManager,
+  ScrollView,
 } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import GradientBackground from "../../hooks/gradientBackground";
 import { useLoadFonts } from "../../hooks/loadFonts";
 import stylesGlobal from "../../styles/stylesGlobal";
+import colors from "../../styles/colors";
 
-// Para animaciones suaves en Android
-if (Platform.OS === "android") {
-  UIManager.setLayoutAnimationEnabledExperimental &&
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-}
+
 
 export default function Support() {
   const fontsLoaded = useLoadFonts();
@@ -32,257 +28,363 @@ export default function Support() {
   const preguntasClientes = [
     {
       pregunta: "¿Cómo comprar un producto?",
-      respuesta:
-        "Puedes comprar un producto entrando a la tienda, seleccionando el artículo y presionando 'Comprar'.",
+      respuesta: "Entra a la tienda, selecciona el artículo, elige tus opciones y presiona 'Comprar'.",
     },
     {
       pregunta: "¿Dónde veo mis pedidos?",
-      respuesta: "En tu perfil encontrarás la sección 'Mis pedidos'.",
+      respuesta: "Ve a tu Perfil (icono de usuario) y busca la sección 'Mis pedidos'.",
     },
     {
       pregunta: "¿Cómo hacer reclamos?",
-      respuesta: "Desde la sección Soporte puedes enviar un reclamo detallado.",
+      respuesta: "Usa el botón de 'Ayuda' en el detalle de tu compra para iniciar un chat con soporte.",
     },
   ];
 
   const preguntasEmprendedores = [
     {
       pregunta: "¿Cómo creo mi tienda?",
-      respuesta:
-        "Ve a la sección Emprender y selecciona 'Crear tienda'. Sigue los pasos indicados.",
+      respuesta: "En el menú principal, ve a 'Emprender' y sigue el asistente de configuración paso a paso.",
     },
     {
       pregunta: "¿Cómo publico un producto?",
-      respuesta:
-        "Desde tu panel de emprendedor selecciona 'Agregar producto'.",
+      respuesta: "Desde tu panel, pulsa el botón (+) y carga las fotos y descripción del artículo.",
     },
     {
       pregunta: "¿Cómo ver estadísticas?",
-      respuesta:
-        "En la sección de estadísticas encontrarás métricas sobre ventas y visitas.",
+      respuesta: "Tu panel de control muestra visitas y ventas en tiempo real.",
     },
     {
       pregunta: "¿Puedo editar un producto?",
-      respuesta:
-        "Sí. Ve a tu lista de productos, selecciona uno y presiona 'Editar'.",
+      respuesta: "Sí, ve a 'Mis Productos', selecciona el lápiz y guarda los cambios.",
     },
   ];
 
-  const toggleClientes = () => {
-    LayoutAnimation.easeInEaseOut();
-    setShowClientes(!showClientes);
-  };
-
-  const toggleEmprendedores = () => {
-    LayoutAnimation.easeInEaseOut();
-    setShowEmprendedores(!showEmprendedores);
+  const toggleSection = (section) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    if (section === 'clientes') {
+      const newState = !showClientes;
+      setShowClientes(newState);
+      if (newState) setShowEmprendedores(false);
+    } else {
+      const newState = !showEmprendedores;
+      setShowEmprendedores(newState);
+      if (newState) setShowClientes(false);
+    }
+    setPreguntaAbierta(null);
   };
 
   const togglePregunta = (id) => {
-    LayoutAnimation.easeInEaseOut();
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setPreguntaAbierta(preguntaAbierta === id ? null : id);
   };
 
   return (
     <GradientBackground>
       <View style={stylesGlobal.container}>
-
-        {/* CUADRO GENERAL */}
-        <View style={styles.bigCard}>
-          <Text style={styles.bigTitle}>Temas de Ayuda</Text>
-
-          {/* CLIENTES */}
-          <TouchableOpacity style={styles.sectionHeader} onPress={toggleClientes}>
-            <Text style={styles.sectionTitle}>Para Clientes</Text>
-            <Ionicons
-              name={showClientes ? "chevron-up" : "chevron-down"}
-              size={26}
-              color="#000"
-            />
-          </TouchableOpacity>
-
-          {showClientes && (
-            <View style={styles.subContent}>
-              {preguntasClientes.map((item, i) => (
-                <View key={i}>
-                  <TouchableOpacity
-                    style={styles.questionRow}
-                    onPress={() => togglePregunta(`cliente-${i}`)}
-                  >
-                    <Text style={styles.questionText}>{item.pregunta}</Text>
-                    <Ionicons
-                      name={
-                        preguntaAbierta === `cliente-${i}`
-                          ? "chevron-up"
-                          : "chevron-down"
-                      }
-                      size={22}
-                      color="#000"
-                    />
-                  </TouchableOpacity>
-
-                  {preguntaAbierta === `cliente-${i}` && (
-                    <View style={styles.answerBox}>
-                      <Text style={styles.answerText}>{item.respuesta}</Text>
-                    </View>
-                  )}
-                </View>
-              ))}
+        <ScrollView 
+          contentContainerStyle={styles.scrollCenter}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.centerWrapper}>
+            
+            {/* Header Centrado */}
+            <View style={styles.headerContainer}>
+              <Text style={styles.mainTitle}>Centro de Ayuda</Text>
+              <Text style={styles.subtitle}>
+                Selecciona una categoría para ver más
+              </Text>
             </View>
-          )}
 
-          {/* EMPRENDEDORES */}
-          <TouchableOpacity
-            style={styles.sectionHeader}
-            onPress={toggleEmprendedores}
-          >
-            <Text style={styles.sectionTitle}>Para Emprendedores</Text>
-            <MaterialCommunityIcons
-              name={showEmprendedores ? "chevron-up" : "chevron-down"}
-              size={26}
-              color="#000"
-            />
-          </TouchableOpacity>
-
-          {showEmprendedores && (
-            <View style={styles.subContent}>
-              {preguntasEmprendedores.map((item, i) => (
-                <View key={i}>
-                  <TouchableOpacity
-                    style={styles.questionRow}
-                    onPress={() => togglePregunta(`emprende-${i}`)}
-                  >
-                    <Text style={styles.questionText}>{item.pregunta}</Text>
-                    <Ionicons
-                      name={
-                        preguntaAbierta === `emprende-${i}`
-                          ? "chevron-up"
-                          : "chevron-down"
-                      }
-                      size={22}
-                      color="#000"
-                    />
-                  </TouchableOpacity>
-
-                  {preguntaAbierta === `emprende-${i}` && (
-                    <View style={styles.answerBox}>
-                      <Text style={styles.answerText}>{item.respuesta}</Text>
-                    </View>
-                  )}
+            {/* Main Card */}
+            <View style={styles.card}>
+              
+              {/* Sección Clientes */}
+              <TouchableOpacity 
+                style={[styles.sectionButton, showClientes && styles.sectionButtonActive]}
+                onPress={() => toggleSection('clientes')}
+                activeOpacity={0.9}
+              >
+                <View style={styles.sectionHeaderInner}>
+                   <View style={[styles.iconContainer, showClientes ? styles.iconContainerActive : styles.iconContainerInactive]}>
+                     <Ionicons 
+                        name="person" 
+                        size={20} 
+                        color={showClientes ? "#1A5FA7" : "#718096"} 
+                     />
+                   </View>
+                   <Text style={[styles.sectionTitle, showClientes && styles.sectionTitleActive]}>
+                      Soy Cliente
+                   </Text>
+                   <Ionicons 
+                      name={showClientes ? "chevron-up" : "chevron-down"} 
+                      size={20} 
+                      color={showClientes ? "#1A5FA7" : "#A0AEC0"} 
+                   />
                 </View>
-              ))}
+              </TouchableOpacity>
+
+              {showClientes && (
+                <View style={styles.questionsList}>
+                  {preguntasClientes.map((item, index) => (
+                    <View key={`c-${index}`} style={styles.questionItem}>
+                      <TouchableOpacity 
+                        style={styles.questionHeader} 
+                        onPress={() => togglePregunta(`c-${index}`)}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={[styles.questionText, preguntaAbierta === `c-${index}` && styles.questionTextActive]}>{item.pregunta}</Text>
+                        <Ionicons 
+                          name={preguntaAbierta === `c-${index}` ? "remove-circle" : "add-circle-outline"} 
+                          size={22} 
+                          color={preguntaAbierta === `c-${index}` ? "#1A5FA7" : "#CBD5E0"} 
+                        />
+                      </TouchableOpacity>
+                      {preguntaAbierta === `c-${index}` && (
+                        <View style={styles.answerBox}>
+                          <Text style={styles.answerText}>{item.respuesta}</Text>
+                        </View>
+                      )}
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              <View style={styles.spacer} />
+
+              {/* Sección Emprendedores */}
+              <TouchableOpacity 
+                style={[styles.sectionButton, showEmprendedores && styles.sectionButtonActive]}
+                onPress={() => toggleSection('emprendedores')}
+                activeOpacity={0.9}
+              >
+                <View style={styles.sectionHeaderInner}>
+                   <View style={[styles.iconContainer, showEmprendedores ? styles.iconContainerActive : styles.iconContainerInactive]}>
+                     <MaterialCommunityIcons 
+                        name="store" 
+                        size={22} 
+                        color={showEmprendedores ? "#1A5FA7" : "#718096"} 
+                     />
+                   </View>
+                   <Text style={[styles.sectionTitle, showEmprendedores && styles.sectionTitleActive]}>
+                      Soy Emprendedor
+                   </Text>
+                   <Ionicons 
+                      name={showEmprendedores ? "chevron-up" : "chevron-down"} 
+                      size={20} 
+                      color={showEmprendedores ? "#1A5FA7" : "#A0AEC0"} 
+                   />
+                </View>
+              </TouchableOpacity>
+
+              {showEmprendedores && (
+                <View style={styles.questionsList}>
+                  {preguntasEmprendedores.map((item, index) => (
+                    <View key={`e-${index}`} style={styles.questionItem}>
+                      <TouchableOpacity 
+                        style={styles.questionHeader} 
+                        onPress={() => togglePregunta(`e-${index}`)}
+                        activeOpacity={0.7}
+                      >
+                        <Text style={[styles.questionText, preguntaAbierta === `e-${index}` && styles.questionTextActive]}>{item.pregunta}</Text>
+                        <Ionicons 
+                          name={preguntaAbierta === `e-${index}` ? "remove-circle" : "add-circle-outline"} 
+                          size={22} 
+                          color={preguntaAbierta === `e-${index}` ? "#1A5FA7" : "#CBD5E0"} 
+                        />
+                      </TouchableOpacity>
+                      {preguntaAbierta === `e-${index}` && (
+                        <View style={styles.answerBox}>
+                          <Text style={styles.answerText}>{item.respuesta}</Text>
+                        </View>
+                      )}
+                    </View>
+                  ))}
+                </View>
+              )}
             </View>
-          )}
 
-          {/* BOTÓN FINAL */}
-          <Text style={styles.subText}>¿Aún no resolvimos tu duda?</Text>
+            {/* Footer Centrado */}
+            <View style={styles.footerContainer}>
+               <Text style={styles.footerLabel}>¿No encontraste lo que buscabas?</Text>
+               <TouchableOpacity style={styles.contactButton} activeOpacity={0.8}>
+                  <Ionicons name="chatbubbles-outline" size={20} color="#FFF" style={{marginRight: 8}}/>
+                  <Text style={styles.contactButtonText}>Contactar Soporte</Text>
+               </TouchableOpacity>
+            </View>
 
-          <TouchableOpacity style={styles.contactBtn}>
-            <Text style={styles.contactText}>Contáctanos</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </ScrollView>
       </View>
     </GradientBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  bigCard: {
-    width: "92%",
-    backgroundColor: "#FFFFFF",
-    borderWidth: 3,
-    borderColor: "#1A5FA7", // Azul del borde real
-    borderRadius: 20,
-    alignSelf: "center",
-    paddingVertical: 25,
-    paddingHorizontal: 15,
+  // CLAVE: Centrado Vertical
+  scrollCenter: {
+    flexGrow: 1,
+    justifyContent: "center", 
+    padding: 20,
   },
-
-  bigTitle: {
-    fontSize: 26,
-    fontFamily: "Poppins-SemiBold",
-    textAlign: "center",
+  centerWrapper: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  
+  // Headers
+  headerContainer: {
+    alignItems: "center",
     marginBottom: 25,
-    color: "#2C3B4A", // Azul grisáceo del título
+    width: '100%',
+  },
+  mainTitle: {
+    fontSize: 28,
+    fontFamily: "Poppins-Bold",
+    color: "#FFFFFF",
+    textAlign: "center",
+    marginBottom: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 4,
+  },
+  subtitle: {
+    fontSize: 15,
+    fontFamily: "Poppins-Regular",
+    color: "rgba(255,255,255,0.9)",
+    textAlign: "center",
   },
 
-  sectionHeader: {
+  // Card Design
+  card: {
     backgroundColor: "#FFFFFF",
-    borderWidth: 2,
-    borderColor: "#1F2D3D", // Gris oscuro como en los botones
+    borderRadius: 24,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    width: "100%",
+    // Shadow moderna
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+
+  // Sections
+  spacer: {
+    height: 10,
+  },
+  sectionButton: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#EDF2F7",
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    marginBottom: 5,
+  },
+  sectionButtonActive: {
+    borderColor: "#BEE3F8", // Azul muy claro borde
+    backgroundColor: "#F0F9FF", // Azul muy claro fondo
+  },
+  sectionHeaderInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  iconContainer: {
+    width: 40,
+    height: 40,
     borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 18,
-    marginBottom: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  iconContainerInactive: {
+    backgroundColor: "#F7FAFC",
+  },
+  iconContainerActive: {
+    backgroundColor: "#FFFFFF",
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontFamily: "Poppins-SemiBold",
+    color: "#4A5568",
+    flex: 1,
+  },
+  sectionTitleActive: {
+    color: colors.textSecundary,
+  },
+
+  // Questions
+  questionsList: {
+    marginTop: 5,
+    marginBottom: 15,
+    marginHorizontal: 5,
+  },
+  questionItem: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#EDF2F7",
+  },
+  questionHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-  },
-
-  sectionTitle: {
-    fontSize: 18,
-    fontFamily: "Poppins-SemiBold",
-    color: "#1F2D3D",
-  },
-
-  subContent: {
-    marginBottom: 20,
-    marginTop: -5,
-  },
-
-  questionRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
     paddingVertical: 14,
-    paddingHorizontal: 14,
-    borderWidth: 2,
-    borderColor: "#1F2D3D",
-    borderRadius: 12,
-    backgroundColor: "#FFFFFF",
-    marginBottom: 8,
+    paddingHorizontal: 8,
   },
-
   questionText: {
-    fontSize: 15,
-    fontFamily: "Poppins-Regular",
-    color: "#1F2D3D",
-  },
-
-  answerBox: {
-    backgroundColor: "#F1F3F5",
-    padding: 12,
-    borderWidth: 2,
-    borderColor: "#1F2D3D",
-    borderRadius: 12,
-    marginBottom: 10,
-  },
-
-  answerText: {
     fontSize: 14,
-    fontFamily: "Poppins-Regular",
-    color: "#1F2D3D",
-  },
-
-  subText: {
-    marginTop: 10,
-    textAlign: "center",
-    fontSize: 15,
-    color: "#5E6A75", // Gris real del texto
     fontFamily: "Poppins-Medium",
+    color: "#4A5568",
+    flex: 1,
+    marginRight: 10,
+  },
+  questionTextActive: {
+    color: colors.textSecundary,
+  },
+  answerBox: {
+    backgroundColor: "#FAFAFA",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 10,
+    marginHorizontal: 4,
+  },
+  answerText: {
+    fontSize: 13.5,
+    fontFamily: "Poppins-Regular",
+    color: "#718096",
+    lineHeight: 20,
   },
 
-  contactBtn: {
-    marginTop: 15,
-    backgroundColor: "#1E324D", // Azul real del botón
-    paddingVertical: 14,
-    borderRadius: 20,
-    alignSelf: "center",
-    width: "60%",
+  // Footer
+  footerContainer: {
+    marginTop: 30,
+    alignItems: "center",
+    width: '100%',
   },
-
-  contactText: {
+  footerLabel: {
+    fontSize: 14,
     color: "#FFFFFF",
+    fontFamily: "Poppins-Medium",
+    marginBottom: 12,
     textAlign: "center",
+    opacity: 0.9,
+  },
+  contactButton: {
+    flexDirection: 'row',
+    backgroundColor: colors.textSecundary,
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 30,
+    alignItems: 'center',
+    shadowColor: colors.textSecundary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  contactButtonText: {
+    color: "#FFFFFF",
     fontSize: 16,
     fontFamily: "Poppins-SemiBold",
   },

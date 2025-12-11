@@ -69,6 +69,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 15,
     borderColor: `${colors.primary}70`,
+    placeholderTextColor:"#999",
     borderWidth: 3,
     fontSize: fonts.size.small,
     fontFamily: fonts.regular,

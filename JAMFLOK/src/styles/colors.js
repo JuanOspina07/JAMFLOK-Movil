@@ -1,6 +1,5 @@
 export default {
     primary:"#2f4156",
-    secundary:"#567c8d",
     colorStart:"#25374d",
     colorEnd:"#f5efeb",
     textPrimary:"#f5efeb",

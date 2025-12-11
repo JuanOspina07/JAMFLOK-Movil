@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
 
 import GradientBackground from "../../hooks/gradientBackground";
@@ -7,12 +7,17 @@ import { getUsuarios } from "../../services/userService";
 
 import { userStyles } from "../../styles/userStyles";
 import stylesGlobal from "../../styles/stylesGlobal";
+import { AuthContext } from "../../context/authContext";
 
 export default function AdminUsers({ navigation }) {
+    const { user, logout } = useContext(AuthContext);
   const fontsLoaded = useLoadFonts();
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+const handleLogout = () => {
+    logout();
+  };
 
   useEffect(() => {
     cargarUsuarios();
@@ -66,7 +71,7 @@ export default function AdminUsers({ navigation }) {
       borderWidth: 1,
       borderColor: '#333',
     }}
-    onPress={() => navigation.navigate("UserDetail", { user: item })}
+    onPress={handleLogout}
   >
     {/* NOMBRE COMPLETO */}
     <Text style={{ color: '#FFF', fontSize: 19, fontWeight: 'bold', marginBottom: 8 }}>

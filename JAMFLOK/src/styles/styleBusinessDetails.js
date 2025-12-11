@@ -180,7 +180,7 @@ export default StyleSheet.create({
   },
 
   reseñasTitulo: {
-    color: colors.textSecundary,
+    color: colors.textPrimary,
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 15,
@@ -231,4 +231,23 @@ export default StyleSheet.create({
     color: colors.icon,
     textAlign: "right",
   },
+  reseñasHeader: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: 10,
+},
+
+botonAgregarReseña: {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 4,
+},
+
+botonAgregarReseñaText: {
+  color:colors.primary ,
+  fontSize: 15,
+  fontWeight: "700",
+},
+
 });

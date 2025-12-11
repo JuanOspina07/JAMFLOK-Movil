@@ -13,10 +13,11 @@ export const getUsuarios = async () => {
 
 export const getUsuarioById = async (id) => {
   try {
-    const res = await api.get(`/usuario/${id}`);
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
+    const response = await api.get(`/usuario/${id}`);
+    return response.data;
+  } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error al obtener los usuarios."
+      );
   }
 };

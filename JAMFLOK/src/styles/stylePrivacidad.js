@@ -15,19 +15,19 @@ export default StyleSheet.create({
   },
 
   backTopLeft: {
-    position: "absolute",
-    top: Platform.OS === "ios" ? 7 : 20,
-    left: 12,
-    zIndex: 50,
-    padding: 8,
-    backgroundColor: "transparent", 
-  },
-  backArrow: {
-    fontSize: 30,
-    color: colors.cardInnerLight || "#EDE9E6", 
-    fontFamily: typography.bold || undefined,
-    fontWeight: "700",
-  },
+  position: "absolute",
+  top: Platform.OS === "ios" ? 9 : 40, 
+  left: 12,
+  zIndex: 50,
+  padding: 8,
+  backgroundColor: "transparent",
+},
+
+backArrow: {
+  fontSize: 28,
+  color: "#fff",
+  fontWeight: "700",
+},
 
   mainContent: {
     width: "100%",
@@ -143,38 +143,5 @@ export default StyleSheet.create({
     textAlign: "left",
     lineHeight: 20,
     marginBottom: 2,
-  },
-
-  footer: {
-    position: "absolute",
-    bottom: 5,
-    left: 20,
-    right: 20,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.18)",
-    paddingVertical: 14,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.35)",
-    shadowColor: "#000",
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 8,
-  },
-  
-  footerText: {
-    fontFamily: typography.medium,
-    fontSize: 17,
-    color: "#3a495aff",
-    fontWeight: "600",
-  },
-  
-  footerSeparator: {
-    fontSize: 20,
-    color: "rgba(255,255,255,0.7)",
-    marginHorizontal: 18,
   },
 });

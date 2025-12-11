@@ -22,6 +22,12 @@ import Privacidad from '../screens/Home/Privacidad';
 import Ayuda from '../screens/Home/Ayuda'; 
 import AdminBusinessDetail from "../screens/Admin/AdminBusinessDetails";
 
+import OptionCustomer from "./OptionsCustomer";
+import EditAccountCustomer from "../screens/Customer/EditAccountCustomer";
+import BusinessDetailsCliente from "../screens/Customer/DetailsBusinessCustomer";
+import ReviewCustomer from "../screens/Customer/ReviewCustomer";
+import OrderConfirmation from "../screens/Customer/OrderConfirmation";
+
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
@@ -53,13 +59,19 @@ function AppStack({ user }) {
                 <Stack.Screen name="EditProducts" component={EditProduct} />
                 <Stack.Screen name="EditBusiness" component={EditBusiness} />
 
+
               </>
             );
 
           case 2:
             return (
               <>
-                <Stack.Screen name="Cliente" component={Home} />
+                <Stack.Screen name="Customer" component={OptionCustomer} />
+                <Stack.Screen name="EditarCuentaCliente" component={EditAccountCustomer}/>
+                <Stack.Screen name="NegocioCliente" component={BusinessDetailsCliente}/>
+                <Stack.Screen name="ReviewCustomer" component={ReviewCustomer} />
+                <Stack.Screen name="OrderConfirmation" component={OrderConfirmation} />               
+
               </>
             );
 

@@ -127,8 +127,8 @@ export default function Ubicacion() {
           }
         </View>
 
-        <TextInput placeholder="Número de Documento" style={stylesGlobal.input} keyboardType="numeric" value={numeroDocumento} onChangeText={setNumeroDocumento} />
-        <TextInput placeholder="Celular" style={stylesGlobal.input} keyboardType="numeric" value={celular} onChangeText={setCelular} />
+        <TextInput placeholder="Número de Documento" placeholderTextColor="#999" style={stylesGlobal.input} keyboardType="numeric" value={numeroDocumento} onChangeText={setNumeroDocumento} />
+        <TextInput placeholder="Celular" placeholderTextColor="#999" style={stylesGlobal.input} keyboardType="numeric" value={celular} onChangeText={setCelular} />
         
         <TouchableOpacity style={stylesGlobal.button} onPress={handleNext} activeOpacity={0.8}>
           <Text style={stylesGlobal.buttonText}>Siguiente</Text>

@@ -47,11 +47,11 @@ export default function DatosPersonales() {
         <ProgressBar step={1} totalSteps={3} />
         <Text style={stylesGlobal.title}>Datos Personales</Text>
 
-        <TextInput placeholder="Primer Nombre" style={stylesGlobal.input} value={primerNombre} onChangeText={setPrimerNombre}/>
-        <TextInput placeholder="Segundo Nombre" style={stylesGlobal.input} value={segundoNombre} onChangeText={setSegundoNombre} />
-        <TextInput placeholder="Primer Apellido" style={stylesGlobal.input} value={primerApellido} onChangeText={setPrimerApellido}/>
-        <TextInput placeholder="Segundo Apellido" style={stylesGlobal.input} value={segundoApellido} onChangeText={setSegundoApellido}/>
-        <TextInput placeholder="Edad" keyboardType="numeric" style={stylesGlobal.input} value={edad} onChangeText={setEdad}/>
+        <TextInput placeholder="Primer Nombre" placeholderTextColor="#999" style={stylesGlobal.input} value={primerNombre} onChangeText={setPrimerNombre}/>
+        <TextInput placeholder="Segundo Nombre" placeholderTextColor="#999" style={stylesGlobal.input} value={segundoNombre} onChangeText={setSegundoNombre} />
+        <TextInput placeholder="Primer Apellido" placeholderTextColor="#999" style={stylesGlobal.input} value={primerApellido} onChangeText={setPrimerApellido}/>
+        <TextInput placeholder="Segundo Apellido" placeholderTextColor="#999" style={stylesGlobal.input} value={segundoApellido} onChangeText={setSegundoApellido}/>
+        <TextInput placeholder="Edad" placeholderTextColor="#999" keyboardType="numeric" style={stylesGlobal.input} value={edad} onChangeText={setEdad}/>
 
         <TouchableOpacity style={[stylesGlobal.input, { justifyContent: "center" }]} onPress={() => setShowDatePicker(true)} activeOpacity={0.7}>
           <Text style={{ color: fechaNacimiento ? colors.textSecundary: "#999" }}>

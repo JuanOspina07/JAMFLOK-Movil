@@ -40,7 +40,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
   },
   card: {
-    backgroundColor: "rgba(66, 87, 111, 0.3)",
+    backgroundColor: colors.textPrimary,
     width: "100%",
     borderRadius: 12,
     marginBottom: 20,
@@ -86,17 +86,17 @@ export default StyleSheet.create({
   },
   nombre: {
     fontWeight: "900",
-    color: colors.textPrimary,
+    color: colors.textSecundary,
     fontSize: 16,
     marginBottom: 5,
   },
   categoria: {
-    color: "#404040",
+    color: colors.textSecundary,
     fontSize: 13,
     marginBottom: 5,
   },
   descripcion: {
-    color: colors.textPrimary,
+    color: colors.textSecundary,
     fontSize: 15,
     marginBottom: 10,
   },

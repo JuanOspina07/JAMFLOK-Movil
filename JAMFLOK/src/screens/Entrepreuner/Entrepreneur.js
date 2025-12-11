@@ -9,6 +9,7 @@ import AnimatedCard from "../../components/AnimatedCard";
 import { AuthContext } from "../../context/authContext";
 
 import { cargarNegociosLogic, filtrarNegociosLogic, renderStarsLogic,} from "../../logic/EntrepreneurLogic";
+import colors from "../../styles/colors";
 
 export default function Entrepreneur() {
   const { user } = useContext(AuthContext);
@@ -86,7 +87,7 @@ export default function Entrepreneur() {
                               name={star.filled ? "star" : "star-outline"}
                               size={18}
                               marginTop={12}
-                              color="#c7c7c7"
+                              color={colors.textSecundary}
                               style={{ marginRight: 2 }}
                             />
                           )

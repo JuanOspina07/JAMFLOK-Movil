@@ -75,9 +75,9 @@ export default function Cuenta() {
           )}
         </View>
 
-        <TextInput placeholder="Nombre de Usuario" style={stylesGlobal.input} value={nombreUsuario} onChangeText={setNombreUsuario} />
-        <TextInput placeholder="Correo" style={stylesGlobal.input} value={correo} onChangeText={setCorreo} />
-        <TextInput placeholder="Contraseña" secureTextEntry style={stylesGlobal.input} value={contraseña} onChangeText={setContraseña} />
+        <TextInput placeholder="Nombre de Usuario" placeholderTextColor="#999" style={stylesGlobal.input} value={nombreUsuario} onChangeText={setNombreUsuario} />
+        <TextInput placeholder="Correo" placeholderTextColor="#999" style={stylesGlobal.input} value={correo} onChangeText={setCorreo} />
+        <TextInput placeholder="Contraseña" placeholderTextColor="#999" secureTextEntry style={stylesGlobal.input} value={contraseña} onChangeText={setContraseña} />
         <View style={styles.passwordRequirements}>
           <Text style={[ styles.requirement,{ color: passwordChecks.length ? colors.primary : colors.textPrimary,fontFamily: passwordChecks.length ? fonts.bold : fonts.regular }]}>
             • Mínimo 8 caracteres

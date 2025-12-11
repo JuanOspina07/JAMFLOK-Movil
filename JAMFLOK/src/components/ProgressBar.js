@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: colors.secundary,
+    backgroundColor: colors.textSecundary,
     borderRadius: 20,
   },
 });

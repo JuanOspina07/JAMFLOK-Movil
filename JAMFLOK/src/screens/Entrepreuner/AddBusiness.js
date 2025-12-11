@@ -89,6 +89,7 @@ export default function AddBusinessScreen() {
           <Ionicons name="storefront-outline" size={22} style={styles.inputIcon} />
           <TextInput
             placeholder="Nombre del negocio"
+            placeholderTextColor="#999"
             style={styles.input}
             value={nombre}
             onChangeText={setNombre}
@@ -98,7 +99,7 @@ export default function AddBusinessScreen() {
         <View style={styles.inputBox}>
           <Ionicons name="document-text-outline" size={22} style={styles.inputIcon} />
           <TextInput
-            placeholder="Número del RUT"
+            placeholder="Número del RUT" placeholderTextColor="#999"
             style={styles.input}
             value={rut}
             onChangeText={setRut}
@@ -107,7 +108,7 @@ export default function AddBusinessScreen() {
 
         <Text style={styles.label}>Descripción de tu negocio:</Text>
         <TextInput
-          placeholder="Describe tu negocio..."
+          placeholder="Describe tu negocio..." placeholderTextColor="#999"
           style={styles.textArea}
           multiline
           value={descripcion}
@@ -117,7 +118,7 @@ export default function AddBusinessScreen() {
         <View style={{ marginBottom: 10, position: 'relative' }}>
           <Text style={styles.label}>Ciudad:</Text>
           <TextInput
-            placeholder="Escribe la ciudad..."
+            placeholder="Escribe la ciudad..." placeholderTextColor="#999"
             style={styles.inputBox}
             value={searchCity}
             onChangeText={(text) => setSearchCity(text)}
@@ -160,7 +161,7 @@ export default function AddBusinessScreen() {
         <View style={styles.inputBox}>
           <Ionicons name="location-outline" size={22} style={styles.inputIcon} />
           <TextInput
-            placeholder="Dirección"
+            placeholder="Dirección" placeholderTextColor="#999"
             style={styles.input}
             value={direccion}
             onChangeText={setDireccion}
@@ -170,7 +171,7 @@ export default function AddBusinessScreen() {
         <View style={styles.inputBox}>
           <Ionicons name="time-outline" size={22} style={styles.inputIcon} />
           <TextInput
-            placeholder="Horario (Ej: 8:00 AM - 6:00 PM)"
+            placeholder="Horario (Ej: 8:00 AM - 6:00 PM)" placeholderTextColor="#999"
             style={styles.input}
             value={horario}
             onChangeText={setHorario}
@@ -181,7 +182,7 @@ export default function AddBusinessScreen() {
           <Ionicons name="call-outline" size={22} style={styles.inputIcon} />
           <TextInput
             placeholder="Número de Teléfono"
-            style={styles.input}
+            style={styles.input} placeholderTextColor="#999"
             keyboardType="phone-pad"
             value={telefono}
             onChangeText={setTelefono}
@@ -195,12 +196,13 @@ export default function AddBusinessScreen() {
             onValueChange={(value) => setCategoria(value)}
             style={styles.picker}
           >
-            <Picker.Item label="Selecciona una categoría" value="" />
+            <Picker.Item label="Selecciona una categoría" value="" color="#999" />
             {categorias.map(cat => (
               <Picker.Item
                 key={cat.ID_CATEGORIAS}
                 label={cat.NombreCategoria}
                 value={cat.ID_CATEGORIAS}
+                color={colors.textSecundary}
               />
             ))}
           </Picker>

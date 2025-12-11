@@ -13,6 +13,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons"; 
 
 import GradientBackground from "../../hooks/gradientBackground";
 import { useLoadFonts } from "../../hooks/loadFonts";
@@ -64,7 +65,8 @@ export default function Privacidad() {
   const handleScroll = (event) => {
     setScrollOffset(event.nativeEvent.contentOffset.y);
   };
-  const MAX_SCROLL_HEIGHT = Math.min(Math.round(WINDOW_HEIGHT * 0.62), 520);
+
+  const MAX_SCROLL_HEIGHT = Math.min(Math.round(WINDOW_HEIGHT * 0.55), 520);
 
   if (!fontsLoaded) {
     return (
@@ -86,7 +88,8 @@ export default function Privacidad() {
             activeOpacity={0.8}
             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
           >
-            <Text style={styles.backArrow}>{"<"}</Text>
+            {/* Flecha reemplazada por Ionicons */}
+            <Ionicons name="arrow-back-outline" size={28} color="#fff" />
           </TouchableOpacity>
 
           <Animated.View style={[styles.mainContent, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
@@ -176,6 +179,7 @@ export default function Privacidad() {
                         </Text>
                       </View>
                     </ScrollView>
+
                     {containerHeight > 0 && contentHeight > containerHeight && thumbHeight > 0 && (
                       <View
                         style={[
@@ -204,20 +208,6 @@ export default function Privacidad() {
               </View>
             </View>
           </Animated.View>
-
-          <View style={styles.footer}>
-            <TouchableOpacity onPress={() => navigation.navigate("Privacidad")}>
-              <Text style={styles.footerText}>Privacidad</Text>
-            </TouchableOpacity>
-            <Text style={styles.footerSeparator}>|</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Ayuda")}>
-              <Text style={styles.footerText}>Ayuda</Text>
-            </TouchableOpacity>
-            <Text style={styles.footerSeparator}>|</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Terminos")}>
-              <Text style={styles.footerText}>Términos</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </SafeAreaView>
     </GradientBackground>
