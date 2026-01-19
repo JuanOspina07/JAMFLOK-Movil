@@ -56,7 +56,7 @@ La plataforma permite que emprendedores registren sus negocios (restaurantes, ba
 └── package.json
 
 # Instalación y ejecución
-git clone https://github.com/tu-usuario/jamflok.git
+git clone https://github.com/JuanOspina07/JAMFLOK-Movil.git
 cd jamflok
 
 # Instalar dependencias
