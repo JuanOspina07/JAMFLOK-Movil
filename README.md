@@ -41,6 +41,7 @@ La plataforma permite que emprendedores registren sus negocios (restaurantes, ba
 * Diseño UX/UI
 
 # Estructura del proyecto
+```
   Jamflok/
 │
 ├── assets/            # Imágenes, íconos, splash
@@ -54,6 +55,7 @@ La plataforma permite que emprendedores registren sus negocios (restaurantes, ba
 ├── App.js
 ├── app.json
 └── package.json
+```
 
 # Instalación y ejecución
 git clone https://github.com/JuanOspina07/JAMFLOK-Movil.git
