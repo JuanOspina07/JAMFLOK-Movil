@@ -2,7 +2,7 @@
 Jamflok es una aplicación móvil desarrollada con React Native y Expo, diseñada para conectar negocios locales con clientes de forma rápida, visual e intuitiva.
 
 La plataforma permite que emprendedores registren sus negocios (restaurantes, barberías, tiendas, servicios, etc.) y que los usuarios puedan descubrirlos fácilmente desde su celular, fomentando el comercio local mediante tecnología moderna.
-#Caracteristicas Principales
+# Caracteristicas Principales
 * Registro y gestión de negocios
 * Registro e inicio de sesión de usuarios
 * Publicación de negocios con:
