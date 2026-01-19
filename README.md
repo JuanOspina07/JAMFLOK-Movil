@@ -58,27 +58,33 @@ La plataforma permite que emprendedores registren sus negocios (restaurantes, ba
 ```
 
 # Instalación y ejecución
+```bash
 git clone https://github.com/JuanOspina07/JAMFLOK-Movil.git
 cd jamflok
+```
 
 # Instalar dependencias
+```bash
 npm install
+```
 
 # Ejecutar App
+```bash
 npx expo start
+```
 
 Luego puedes:
 
 Escanear el QR con Expo Go (Android/iOS) O ejecutar en emulador Android/iOS
 
 # Configuración del backend 
-
+```
 import axios from "axios";
 
 export const api = axios.create({
   baseURL: "http://TU_IP_LOCAL:3000/api"
 });
-
+```
 # Objetivo del proyecto
 Jamflok nace como un proyecto académico y emprendedor, con el objetivo de:
 
